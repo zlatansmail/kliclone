@@ -41,12 +41,14 @@
   flex-direction: row;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .nav-items-wrapper {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 .nav-item {
@@ -77,6 +79,10 @@
   color: inherit;
 }
 
+.nav-item a:hover {
+  text-decoration: underline;
+}
+
 .nav-content {
   display: flex;
   flex-direction: row;
@@ -86,4 +92,34 @@
 .navigation {
   display: flex;
   flex-direction: row;
+}
+
+.theme-button {
+  display: flex;
+  align-items: center;
+  margin-left: 1.25rem;
+  border-left: 1px solid rgba(75,85,99,1);
+  height: 1.25rem;
+}
+
+.theme-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode-icon-svg {
+  display: flex;
+  align-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 1.25rem;
+}
+
+.side-menu-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
 }
