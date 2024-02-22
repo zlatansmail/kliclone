@@ -1,40 +1,89 @@
 :root {
-  --main-bg-color: rgba(17,24,39,1);
-  --fore-bg-color: rgba(17,24,39,1);
+  --main-bg-color:rgba(16,24,39,1);
+  --fore-bg-color: rgba(31,41,55,1);
+  --text-color: rgba(229,231,235,1);
 }
 
 
 .App {
   background-color: var(--main-bg-color);
-  
+  min-height: 100vh;
+  color: var(--text-color);
 }
 
 .App-header {
-  background-color: var(--main-bg-color);
-  min-height: 100vh;
+  background-color: var(--fore-bg-color);
+  font-size: 0.95rem;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   color: white;
+  max-height: 40px;
+  width: 100vw;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .App-link {
-  color: #61dafb;
+  text-decoration: none;
+
+}
+
+#logo {
+  width: 80px;
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+.navigation-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+}
+
+.nav-items-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+
+}
+
+.nav-item-icon-box {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  background-color: #61dafb;
+  border-radius: 0.125rem;
+
+}
+
+.nav-item a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: row;
+
 }
 
 .navigation {
-  font-size: 0.95rem;
-  list-style: none;
   display: flex;
   flex-direction: row;
-}
-
-.navigation li {
-  display: inline-flex;
-  gap: 5px;
-}
-
-.navigation ul {
-  display: inline-flex;
-  
-
 }
