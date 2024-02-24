@@ -41,7 +41,7 @@
   flex-direction: row;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  justify-content: space-between;
+  justify-content: space-between; 
   flex-wrap: nowrap;
   align-items: center;
 }
@@ -49,8 +49,9 @@
 .nav-items-wrapper {
   display: flex;
   align-items: center;
-  min-width: 71vw;
+  min-width: 71vw; 
   max-width: 80vw;
+  padding-left: 1.25rem
 }
 
 .nav-item {
@@ -59,7 +60,6 @@
   justify-content: space-between;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-
 }
 
 .nav-item-icon-box {
@@ -70,7 +70,6 @@
   flex-direction: row;
   background-color: #61dafb;
   border-radius: 0.125rem;
-
 }
 
 .nav-item a {
@@ -88,7 +87,6 @@
 .nav-content {
   display: flex;
   flex-direction: row;
-
 }
 
 .navigation {
@@ -99,7 +97,7 @@
 .theme-button {
   display: flex;
   align-items: center;
-  margin-left: 1.25rem;
+  margin-left: 1.25rem; 
   border-left: 1px solid rgba(75, 85, 99, 1);
   height: 1.25rem;
 }
@@ -114,16 +112,17 @@
   align-items: center;
   width: 1.25rem;
   height: 1.25rem;
-  margin-left: 1.25rem;
+  margin-left: 1.25rem; 
 }
 
 .side-menu-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-end; 
   flex-wrap: nowrap;
   align-content: center;
   align-items: center;
+  padding-right: 1.25rem
 }
 
 .search-icon-wrapper {
@@ -139,7 +138,6 @@
 .search-icon-svg {
   width: 1rem;
   height: 1rem;
-
 }
 
 .profile-icon-wrapper {
@@ -155,7 +153,6 @@
 .profile-icon-svg {
   width: 1rem;
   height: 1rem;
-
 }
 
 .ham-menu-icon-wrapper {
@@ -170,5 +167,12 @@
 .ham-menu-icon-svg {
   width: 1rem;
   height: 1rem;
+}
 
+.hero-section-container {
+  display: grid;
+  align-self: center;
+  min-width: 71vw;
+  margin-left: auto;
+  margin-right: auto;
 }
