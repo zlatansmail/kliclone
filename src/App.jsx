@@ -1,7 +1,6 @@
 import './App.css';
-import Navigation from './molecules/Navigation.jsx';
-import HeroSection from './molecules/HeroSection.jsx';
-import Body from './organisms/Body.jsx';
+import Navigation from './components/molecules/Navigation.jsx';
+import HomeBody from './components/organisms/HomeBody.jsx';
 
 const App = () => {
   return (
@@ -10,7 +9,7 @@ const App = () => {
         <Navigation/>
       </header>
       <div>
-      <Body/> 
+      <HomeBody/> 
       </div>
     </div>
   );

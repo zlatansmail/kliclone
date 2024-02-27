@@ -1,5 +1,5 @@
 import React from "react";
-import '../App.css';
+import '../../App.css';
 
 const SideMenu = () => {
     return (
@@ -32,9 +32,9 @@ const SideMenu = () => {
             <span className="ham-menu-icon-wrapper">
                 <div
                     id="sidebar-open"
-                    className=""
+                    className="ham-menu-icon-svg"
                     aria-label="Open site navigation"
-                    strokeWidth="1.5"
+                    strokeWidth="0"
                 >
                     <svg
                         className=""

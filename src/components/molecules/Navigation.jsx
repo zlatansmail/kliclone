@@ -1,5 +1,5 @@
 import React from "react";
-import '../App.css';
+import '../../App.css';
 import NavItem from "../atoms/NavItem";
 import SideMenu from "../atoms/SideMenu";
 import ThemeToggle from "../atoms/ThemeToggle";
@@ -22,7 +22,7 @@ const Navigation = () => {
     <div className="navigation-wrapper">
       <div className="nav-items-wrapper">
         <div className="logo-wrapper">
-          <img id="logo" src="logo.png" alt="klix logotip" />
+          <img id="logo" src="logo.svg" alt="klix logotip" />
         </div>
         {navItems.map((item) => (
           <NavItem
