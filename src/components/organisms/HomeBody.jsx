@@ -1,11 +1,22 @@
 import React from "react";
 import '../../App.css';
 import HeroSection from "../molecules/HeroSection";
+import CategorySectionSix from "../molecules/CategorySectionSix";
+import CategorySectionFour from "../molecules/CategorySectionFour";
+import CategorySectionPromo from "../molecules/CategorySectionPromo";
 
 const HomeBody = () => {
   return (
-    <div className="hero-section-container">
-      <HeroSection />
+    <div className="home-body">
+      <HeroSection />      
+      <CategorySectionSix />
+      <CategorySectionSix />
+      <CategorySectionSix />
+      <CategorySectionSix />
+      <CategorySectionSix />
+      <CategorySectionFour />
+      <CategorySectionFour />
+      <CategorySectionPromo />
     </div>
   );
 };

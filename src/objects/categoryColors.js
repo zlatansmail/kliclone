@@ -1,6 +1,3 @@
-import React from "react";
-
-
 export const categoryColors = {
     Vijesti: "rgba(211,61,61,1)", 
     Biznis: "rgba(239,111,62,1)",
@@ -11,3 +8,4 @@ export const categoryColors = {
     Auto: "rgba(72,123,175,1)",   
     default: "rgba(156,163,175,1)"
   };
+

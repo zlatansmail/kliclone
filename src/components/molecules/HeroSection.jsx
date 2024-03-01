@@ -15,16 +15,20 @@ const HeroSection = (props) => {
     <ArticleCard />,
     <ArticleCard />,
     <ArticleCard />,
-    
+
   ];
 
   return (
-    <div className="hero-grid-container">
-        {gridItems.map((item, index) => (
-          <div key={index} className="grid-item">
-            {item}
-          </div>
-        ))}
+    <div>
+      <section className="hero-section-container">
+        <div className="hero-grid-container">
+          {gridItems.map((item, index) => (
+            <div key={index} className="grid-item">
+              {item}
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
