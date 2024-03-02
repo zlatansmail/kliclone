@@ -19,7 +19,7 @@ const HeroSection = (props) => {
   ];
 
   return (
-    <div>
+    
       <section className="hero-section-container">
         <div className="hero-grid-container">
           {gridItems.map((item, index) => (
@@ -29,7 +29,7 @@ const HeroSection = (props) => {
           ))}
         </div>
       </section>
-    </div>
+    
   );
 };
 
