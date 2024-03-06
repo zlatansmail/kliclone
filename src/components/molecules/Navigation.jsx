@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import '../../App.css';
 import NavItem from "../atoms/NavItem";
 import SideMenu from "../atoms/SideMenu";
 import ThemeToggle from "../atoms/ThemeToggle";
 import { navItems } from '../../objects/navItems'
-const Navigation = () => {
+import DropDownMenu from "./DropDownMenu";
 
+
+const Navigation = ({isDropDownOpen, handleDropDownClick}) => {
+
+  const handleClick = () => {
+    handleDropDownClick(); 
+  };
 
   return (
     <div className="navigation-wrapper">
@@ -24,7 +30,8 @@ const Navigation = () => {
         ))}
         <ThemeToggle />
       </div>
-      <SideMenu />
+      <SideMenu handleDropDownClick={handleClick} isDropDownOpen={isDropDownOpen}/>
+      
     </div>
   );
 };
