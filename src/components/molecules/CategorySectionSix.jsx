@@ -1,8 +1,7 @@
 import React from 'react'
 import ArticleCard from '../atoms/ArticleCard';
 import NavItem from '../atoms/NavItem';
-import FeaturedNews from '../atoms/FeaturedNews';
-import { navItems } from '../../objects/navItems';
+
 
 const CategorySectionSix = (props) => {
 

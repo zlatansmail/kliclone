@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import '../../App.css';
 import NavItem from "../atoms/NavItem";
 import SideMenu from "../atoms/SideMenu";
 import ThemeToggle from "../atoms/ThemeToggle";
 import { navItems } from '../../objects/navItems'
-import DropDownMenu from "./DropDownMenu";
 
 
 const Navigation = ({isDropDownOpen, handleDropDownClick}) => {
