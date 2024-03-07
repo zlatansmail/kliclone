@@ -1,11 +1,13 @@
 import React from 'react'
 import ArticleCard from '../atoms/ArticleCard';
 import NavItem from '../atoms/NavItem';
+import { categories } from '../../objects/categories';
+import './category-section-four.css';
 
 const CategorySectionFour = (props) => {
 
     const gridItems = [
-        <NavItem />,
+        <NavItem key={categories.id} content={categories.name} />,
         <ArticleCard />,
         <ArticleCard />,
         <ArticleCard />,

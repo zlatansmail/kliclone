@@ -1,5 +1,5 @@
 import React from "react";
-import '../../App.css';
+import './home-body.css';
 import HeroSection from "../molecules/HeroSection";
 import CategorySectionSix from "../molecules/CategorySectionSix";
 import CategorySectionFour from "../molecules/CategorySectionFour";
@@ -8,7 +8,7 @@ import CategorySectionPromo from "../molecules/CategorySectionPromo";
 const HomeBody = () => {
   return (
     <div className="home-body">
-      <HeroSection />      
+      <HeroSection />
       <CategorySectionSix />
       <CategorySectionSix />
       <CategorySectionSix />

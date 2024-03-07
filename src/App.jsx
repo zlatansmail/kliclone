@@ -1,29 +1,31 @@
-import './App.css';
-import Navigation from './components/molecules/Navigation.jsx';
-import HomeBody from './components/organisms/HomeBody.jsx';
-import Footer from './components/organisms/Footer.jsx'
-import DropDownMenu from './components/molecules/DropDownMenu.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+import './App.css';
 
+import ArticlePage from './components/templates/ArticlePage.jsx';
+import Homepage from './components/templates/Homepage.jsx';
+import Navigation from './components/molecules/Navigation.jsx';
+import DropdownMenu from './components/molecules/DropdownMenu.jsx';
 const App = () => {
-
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  
-  const handleDropDownClick = () => {
-    setIsDropDownOpen(!isDropDownOpen); 
-  };
 
+  const handleDropDownClick = () => {
+    setIsDropDownOpen(!isDropDownOpen);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-      <Navigation handleDropDownClick={handleDropDownClick} isDropDownOpen={isDropDownOpen}/>
-      {isDropDownOpen && <DropDownMenu />}
+    <>
+      <header className="header">
+        <Navigation handleDropDownClick={handleDropDownClick} isDropDownOpen={isDropDownOpen} />
+        {isDropDownOpen && <DropdownMenu />}
       </header>
-      <div className='bellow-header'></div>
-      <HomeBody />
-      <Footer />
-    </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/article-name" element={<ArticlePage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
-}
+};
 
 export default App;

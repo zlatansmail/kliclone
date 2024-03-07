@@ -1,5 +1,5 @@
 import React from "react";
-import '../../App.css';
+import './hero-section.css';
 import ArticleCard from '../../components/atoms/ArticleCard'
 import HashtagSlider from "../../components/atoms/HashtagSlider";
 import FeaturedNews from "../../components/atoms/FeaturedNews";
@@ -19,17 +19,17 @@ const HeroSection = (props) => {
   ];
 
   return (
-    
-      <section className="hero-section-container">
-        <div className="hero-grid-container">
-          {gridItems.map((item, index) => (
-            <div key={index} className="grid-item">
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-    
+
+    <section className="hero-section-container">
+      <div className="hero-grid-container">
+        {gridItems.map((item, index) => (
+          <div key={index} className="grid-item">
+            {item}
+          </div>
+        ))}
+      </div>
+    </section>
+
   );
 };
 

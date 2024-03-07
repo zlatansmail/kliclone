@@ -1,6 +1,7 @@
 import React from 'react'
+import './footer.css'
 
-const Footer =()=> {
+const Footer = () => {
     return (
         <footer>
             <nav className='footer-nav'>
@@ -26,10 +27,10 @@ const Footer =()=> {
                 <a href='/rss'>RSS</a>
             </div>
             <div className='footer-copyright'>
-<p>Ovo je klon web portala Klix.ba izrađen u cilju usavršavanja vještina web developmenta. Sva prava zadržava Intersoft d.o.o.</p>
+                <p>Ovo je klon web portala Klix.ba izrađen u cilju usavršavanja vještina web developmenta. Sva prava zadržava Intersoft d.o.o.</p>
             </div>
         </footer>
-      );
+    );
 }
 
 export default Footer;

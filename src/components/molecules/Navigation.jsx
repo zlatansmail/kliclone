@@ -1,22 +1,22 @@
 import React from "react";
-import '../../App.css';
+import './navigation.css';
 import NavItem from "../atoms/NavItem";
-import SideMenu from "../atoms/SideMenu";
+import RightMenu from "../atoms/RightMenu";
 import ThemeToggle from "../atoms/ThemeToggle";
 import { navItems } from '../../objects/navItems'
 
 
-const Navigation = ({isDropDownOpen, handleDropDownClick}) => {
+const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
 
   const handleClick = () => {
-    handleDropDownClick(); 
+    handleDropDownClick();
   };
 
   return (
     <div className="navigation-wrapper">
       <div className="nav-items-wrapper">
         <div className="logo-wrapper">
-          <img id="logo" src="logo.svg" alt="klix logotip" />
+          <img className="nav-logo" src="logo.svg" alt="klix logotip" />
         </div>
         {navItems.map((item) => (
           <NavItem
@@ -29,8 +29,8 @@ const Navigation = ({isDropDownOpen, handleDropDownClick}) => {
         ))}
         <ThemeToggle />
       </div>
-      <SideMenu handleDropDownClick={handleClick} isDropDownOpen={isDropDownOpen}/>
-      
+      <RightMenu handleDropDownClick={handleClick} isDropDownOpen={isDropDownOpen} />
+
     </div>
   );
 };

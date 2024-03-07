@@ -1,5 +1,6 @@
 import React from "react";
 import '../../App.css';
+import './article-card.css'
 import { categoryColors } from '../../objects/categoryColors.js'
 
 export const ArticleCard = ({ image, alt, tagline, headline, shares, comments, timeAdded, category }) => {

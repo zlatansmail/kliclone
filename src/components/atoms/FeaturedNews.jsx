@@ -1,5 +1,6 @@
 import React from "react";
 import '../../App.css';
+import './featured-news.css';
 import { ArticleCard } from './ArticleCard.jsx'
 
 const FeaturedNews = ({ mostRead, newest, mostCommented }) => {

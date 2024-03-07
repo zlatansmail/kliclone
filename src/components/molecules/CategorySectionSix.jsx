@@ -1,6 +1,7 @@
 import React from 'react'
 import ArticleCard from '../atoms/ArticleCard';
 import NavItem from '../atoms/NavItem';
+import './category-section-six.css';
 
 
 const CategorySectionSix = (props) => {

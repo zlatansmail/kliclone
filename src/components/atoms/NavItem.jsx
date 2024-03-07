@@ -1,5 +1,6 @@
 import React from "react";
 import '../../App.css';
+import './nav-item.css';
 
 const NavItem = ({ content, link, boxColor, fontColor }) => {
   return (

@@ -1,7 +1,8 @@
 import React from "react";
 import '../../App.css';
+import './right-menu.css'
 
-const SideMenu = ({ handleDropDownClick, isDropDownOpen }) => {
+const RightMenu = ({ handleDropDownClick, isDropDownOpen }) => {
 
   const svgClosed = (
     <svg
@@ -25,8 +26,8 @@ const SideMenu = ({ handleDropDownClick, isDropDownOpen }) => {
       fill="currentColor"
       viewBox="0 0 20 20"
     >
-      <path 
-      d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" 
+      <path
+        d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"
       />
     </svg>
   );
@@ -36,7 +37,7 @@ const SideMenu = ({ handleDropDownClick, isDropDownOpen }) => {
   };
 
   return (
-    <div className="side-menu-wrapper">
+    <div className="right-menu-wrapper">
       <span className="search-icon-wrapper">
         <svg
           className="search-icon-svg"
@@ -70,4 +71,4 @@ const SideMenu = ({ handleDropDownClick, isDropDownOpen }) => {
   );
 };
 
-export default SideMenu;
+export default RightMenu;

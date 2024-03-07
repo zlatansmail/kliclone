@@ -1,5 +1,6 @@
 import React from "react";
 import '../../App.css';
+import './hashtag-slider.css';
 
 const HashtagSlider = ({ logo, tags }) => {
     return (
