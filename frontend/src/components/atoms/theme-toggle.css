@@ -1,0 +1,20 @@
+.theme-button {
+  display: flex;
+  align-items: center;
+  margin-left: 1.25rem;
+  border-left: 1px solid rgba(75, 85, 99, 1);
+  height: 1.25rem;
+}
+
+.theme-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode-icon-svg {
+  display: flex;
+  align-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 1.25rem;
+}
