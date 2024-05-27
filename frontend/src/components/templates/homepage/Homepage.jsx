@@ -1,6 +1,6 @@
 import './homepage.css';
-import HomeBody from '../organisms/HomeBody.jsx';
-import Footer from '../organisms/Footer.jsx'
+import HomeBody from '../../organisms/HomeBody.jsx';
+import Footer from '../../organisms/Footer.jsx'
 
 const Homepage = () => {
 

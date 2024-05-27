@@ -1,13 +1,13 @@
 import React from "react";
-import './navigation.css';
+import { Link } from "react-router-dom";
+
+import "./navigation.css";
 import NavItem from "../atoms/NavItem";
 import RightMenu from "../atoms/RightMenu";
 import ThemeToggle from "../atoms/ThemeToggle";
-import { navItems } from '../../objects/navItems'
-
+import { navItems } from "../../objects/navItems";
 
 const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
-
   const handleClick = () => {
     handleDropDownClick();
   };
@@ -16,7 +16,9 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
     <div className="navigation-wrapper">
       <div className="nav-items-wrapper">
         <div className="logo-wrapper">
-          <img className="nav-logo" src="logo.svg" alt="klix logotip" />
+          <Link to="/">
+            <img className="nav-logo" src="logo.svg" alt="klix logotip" />
+          </Link>
         </div>
         {navItems.map((item) => (
           <NavItem
@@ -29,8 +31,10 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
         ))}
         <ThemeToggle />
       </div>
-      <RightMenu handleDropDownClick={handleClick} isDropDownOpen={isDropDownOpen} />
-
+      <RightMenu
+        handleDropDownClick={handleClick}
+        isDropDownOpen={isDropDownOpen}
+      />
     </div>
   );
 };
