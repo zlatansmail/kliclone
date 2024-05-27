@@ -68,6 +68,11 @@ label {
     transition: background-color 0.3s;
 }
 
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .sublogo {
     color: white;
     font-size: 1rem;
@@ -85,4 +90,10 @@ label {
 .additional-info a{
     color: white;
     text-decoration: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin: 0;
 }
