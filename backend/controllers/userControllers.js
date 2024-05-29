@@ -8,7 +8,7 @@ const registerUser = async (req, res, next) => {
 
     let user = await User.findOne({ email });
     if (user) {
-      throw new Error("User already exists");
+      throw new Error("Korisnik već postoji");
     }
 
     user = await User.create({
@@ -38,7 +38,7 @@ const loginUser = async (req, res, next) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      throw new Error("User not found");
+      throw new Error("Korisnik nije pronađen");
     }
 
     if (await user.comparePassword(password)) {
@@ -52,7 +52,7 @@ const loginUser = async (req, res, next) => {
         token: await user.generateJWT()
       });
     } else {
-      throw new Error("Invalid credentials");
+      throw new Error("Pogresni podaci za prijavu");
     }
   } catch (error) {
     next(error);
@@ -72,7 +72,7 @@ const userProfile = async (req, res, next) => {
         admin: user.admin
       });
     } else {
-      let err = new Error("User not found");
+      let err = new Error("Korisnik nije pronađen");
       err.statusCode = 404;
       next(err);
     }
@@ -85,13 +85,13 @@ const updateProfile = async (req, res, next) => {
   try {
     let user = await User.findById(req.user._id);
     if (!user) {
-      throw new Error("User not found");
+      throw new Error("Korisnik nije pronađen");
     }
 
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     if (req.body.password && req.body.password.length < 6) {
-      throw new Error("Password must be at least 6 characters");
+      throw new Error("Pasword mora imati minimalno 6 karaktera");
     } else if (req.body.password) {
       user.password = req.body.password;
     }
@@ -117,7 +117,7 @@ const updateProfilePicture = async (req, res, next) => {
     upload(req, res, async (err) => {
       if (err) {
         const error = new Error(
-          "Error occurred while uploading image" + err.message
+          "Greska pri slanju slike" + err.message
         );
         next(error);
       } else {

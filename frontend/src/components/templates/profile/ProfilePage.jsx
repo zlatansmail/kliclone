@@ -1,35 +1,31 @@
-import React, { useEffect }from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "react-query";
 
-import "./register-page.css";
-import { signUp } from "../../../services/index/users.js";
-import { userActions } from "../../../store/reducers/userReducers.js";
+import "./profile-page.css";
+import { getUserProfile } from "../../../services/index/users.js";
+import ProfilePicture from "../../atoms/profile-picture/ProfilePicture.jsx";
 
-const RegisterPage = () => {
+const ProfilePage = () => {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const mutation = useMutation(
-    ({ name, email, password }) => signUp({ name, email, password }),
-    {
-      onSuccess: (data) => {
-        dispatch(userActions.setUserInfo(data));
-        localStorage.setItem('account', JSON.stringify(data));
-      },
-      onError: (error) => {
-        toast.error(error.message);
-        console.log(error);
-      }
-    }
-  );
+  const {
+    data: profileData,
+    isLoading: profileIsLoading,
+    error: profileError
+  } = useQuery({
+    queryFn: () => {
+      return getUserProfile({ token: userState.userInfo.token });
+    },
+    queryKey: ["userProfile"]
+  });
 
   useEffect(() => {
-    if (userState.userInfo) {
+    if (!userState.userInfo) {
       navigate("/");
     }
   }, [navigate, userState.userInfo]);
@@ -43,25 +39,21 @@ const RegisterPage = () => {
     defaultValues: {
       name: "",
       email: "",
-      password: "",
-      confirmPassword: ""
+      password: ""
+    },
+    values: {
+      name: profileIsLoading ? "" : profileData?.name,
+      email: profileIsLoading ? "" : profileData?.email
     },
     mode: "onChange"
   });
 
-  const submitHandler = (data) => {
-    const { name, email, password } = data;
-    mutation.mutate({ name, email, password });
-  };
-
-  const password = watch("password");
+  const submitHandler = (data) => {};
 
   return (
     <section className="register-page-container">
       <div className="register-form-container">
-        <img src="../../logo.svg" alt="register" className="register-image" />
-        <span className="sublogo">Clone</span>
-        <h1 className="form-title">Registrujte se</h1>
+        <ProfilePicture avatar={profileData?.avatar}/>
         <form className="form" onSubmit={handleSubmit(submitHandler)}>
           <div className="input-field">
             <label htmlFor="name">Ime</label>
@@ -129,45 +121,18 @@ const RegisterPage = () => {
               <p className="error-message">{errors.password?.message}</p>
             )}
           </div>
-          <div className="input-field">
-            <label htmlFor="password">Potvrdite lozinku</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              {...register("confirmPassword", {
-                required: {
-                  value: true,
-                  message: "Potvrda lozinke je obavezna"
-                },
-                validate: (value) => {
-                  if (value !== password) {
-                    return "Lozinke se ne poklapaju";
-                  }
-                }
-              })}
-              placeholder="Ponovite lozinku"
-              required
-            ></input>
-            {errors.confirmPassword?.message && (
-              <p className="error-message">{errors.confirmPassword?.message}</p>
-            )}
-          </div>
           <button
             type="submit"
             className="submit-button"
             disabled={!isValid || isLoading}
           >
-            Registruj me
+            Azuriraj profil
           </button>
-          <div className="additional-info">
-            <Link to="/login" className="login-link">
-              Vec imate nalog? Ulogujte se
-            </Link>
-          </div>
+          <div className="additional-info"></div>
         </form>
       </div>
     </section>
   );
 };
 
-export default RegisterPage;
+export default ProfilePage;
