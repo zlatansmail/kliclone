@@ -9,15 +9,15 @@ const PostSchema = new Schema(
     photo: { type: String, required: false },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     tags: { type: [String] },
-    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategory" }],
+    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategory" }]
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 PostSchema.virtual("comments", {
   ref: "Comment",
   localField: "_id",
-  foreignField: "postId",
+  foreignField: "post"
 });
 
 const Post = model("Post", PostSchema);

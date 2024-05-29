@@ -1,19 +1,22 @@
 import express from "express";
 import dotenv from "dotenv";
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 import connectDB from "./config/db.js";
-import { errorResponserHandler, invalidRouteHandler } from "./middleware/errorHandler.js";
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import {
+  errorResponserHandler,
+  invalidRouteHandler
+} from "./middleware/errorHandler.js";
 
 //Routes
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 connectDB();
@@ -28,7 +31,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use("/api/comments", commentRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(invalidRouteHandler);
 app.use(errorResponserHandler);

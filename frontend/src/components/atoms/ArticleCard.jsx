@@ -1,10 +1,24 @@
 import React from "react";
+import { useQuery } from "react-query";
+import { toast } from "react-toastify";
+
 import '../../App.css';
 import './article-card.css'
 import { categoryColors } from '../../objects/categoryColors.js'
+import { getAllPosts } from "../../services/index/posts.js";
 
 export const ArticleCard = ({ image, alt, tagline, headline, shares, comments, timeAdded, category }) => {
-    const style = { color: categoryColors[category] || categoryColors.default };;
+    const style = { color: categoryColors[category] || categoryColors.default };
+
+    const {data, isLoading, isError} = useQuery({
+        queryFn: () => getAllPosts,
+        queryKey: ["posts"],
+        onError(err) {
+            toast.error(err.message);
+            console.log(err);
+        },
+    });
+
     return (
         <div className="article-card">
             <div className="article-card-wrapper">

@@ -18,6 +18,15 @@ const HeroSection = (props) => {
 
   ];
 
+  const {data, isLoading, isError} = useQuery({
+    queryFn: () => getAllPosts,
+    queryKey: ["posts"],
+    onError(err) {
+        toast.error(err.message);
+        console.log(err);
+    },
+});
+
   return (
 
     <section className="hero-section-container">

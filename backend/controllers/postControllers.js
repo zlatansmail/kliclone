@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { uploadPicture } from "../middleware/uploadPictureMiddleware.js";
 import Post from "../models/Post.js";
 import { fileRemover } from "../utils/fileRemover.js";
+import Comment from "../models/Comment.js";
 
 const createPost = async (req, res, next) => {
   try {
@@ -29,39 +30,37 @@ const updatePost = async (req, res, next) => {
   try {
     const post = await Post.findOne({ slug: req.params.slug });
 
-    if(!post) {
-        let err = new Error("Post not found");
-        err.statusCode = 404;
-        next(err);
-        return; 
+    if (!post) {
+      let err = new Error("Post not found");
+      err.statusCode = 404;
+      next(err);
+      return;
     }
 
     const upload = uploadPicture.single("postPicture");
 
     const handleUpdatePostData = async (data) => {
-        const {title, caption, slug, body, tags, categories} = JSON.parse(data);
-        post.title = title || post.title;
-        post.caption = caption || post.caption;
-        post.slug = slug || post.slug;
-        post.body = body || post.body;
-        post.tags = tags || post.tags;
-        post.categories = categories || post.categories;
+      const { title, caption, slug, body, tags, categories } = JSON.parse(data);
+      post.title = title || post.title;
+      post.caption = caption || post.caption;
+      post.slug = slug || post.slug;
+      post.body = body || post.body;
+      post.tags = tags || post.tags;
+      post.categories = categories || post.categories;
 
-        const updatedPost = await post.save();
-        return res.json(updatedPost);
-    }
+      const updatedPost = await post.save();
+      return res.json(updatedPost);
+    };
 
     upload(req, res, async (err) => {
       if (err) {
-        const error = new Error(
-          "Greska pri slanju slike" + err.message
-        );
+        const error = new Error("Greska pri slanju slike" + err.message);
         next(error);
       } else {
         if (req.file) {
           let filename;
           filename = post.photo;
-          if(filename) {
+          if (filename) {
             fileRemover(filename);
           }
           post.photo = req.file.filename;
@@ -80,4 +79,74 @@ const updatePost = async (req, res, next) => {
   }
 };
 
-export { createPost, updatePost };
+const deletePost = async (req, res, next) => {
+  try {
+    const post = await Post.findOneAndDelete({ slug: req.params.slug });
+    if (!post) {
+      let error = new Error("Post not found");
+      return next(error);
+    }
+
+    await Comment.deleteMany({ post: post._id });
+
+    return res.json({ message: "Post deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getPosts = async (req, res, next) => {
+  try {
+    const posts = await Post.findOne({ slug: req.params.slug }).populate([
+      {
+        path: "user",
+        select: ["avatar", "name"]
+      },
+      {
+        path: "comments",
+        match: {
+          check: true,
+          parent: null
+        },
+        populate: [
+          {
+            path: "user",
+            select: ["avatar", "name"]
+          },
+          {
+            path: "replies",
+            match: {
+              check: true
+            }
+          }
+        ]
+      }
+    ]);
+
+    if (!posts) {
+      let error = new Error("Post not found");
+      return next(error);
+    }
+
+    return res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllPosts = async (req, res, next) => {
+  try {
+    const posts = await Post.find({}).populate([
+      {
+        path: "user",
+        select: ["avatar", "name"]
+      }
+    ]);
+
+    return res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { createPost, updatePost, deletePost, getPosts, getAllPosts };
