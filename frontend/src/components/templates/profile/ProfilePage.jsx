@@ -2,16 +2,40 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import "./profile-page.css";
 import { getUserProfile } from "../../../services/index/users.js";
 import ProfilePicture from "../../atoms/profile-picture/ProfilePicture.jsx";
+import { updateProfile } from "../../../services/index/users.js";
+import { userActions } from "../../../store/reducers/userReducers.js";
+import toast from "react-hot-toast";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const mutation = useMutation(
+    ({ name, email, password }) =>
+      updateProfile({
+        token: userState.userInfo.token,
+        userData: { name, email, password }
+      }),
+    {
+      onSuccess: (data) => {
+        dispatch(userActions.setUserInfo(data));
+        localStorage.setItem("account", JSON.stringify(data));
+        queryClient.invalidateQueries(["userProfile"]);
+        toast.success("Profil azuriran");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+        console.log(error);
+      }
+    }
+  );
 
   const {
     data: profileData,
@@ -48,12 +72,16 @@ const ProfilePage = () => {
     mode: "onChange"
   });
 
-  const submitHandler = (data) => {};
+  const submitHandler = (data) => {
+    const { name, email, password } = data;
+    mutation.mutate({ name, email, password });
+  };
 
   return (
     <section className="register-page-container">
       <div className="register-form-container">
-        <ProfilePicture avatar={profileData?.avatar}/>
+      <h2 className="heading">Moj profil</h2>
+        <ProfilePicture avatar={profileData?.avatar} />
         <form className="form" onSubmit={handleSubmit(submitHandler)}>
           <div className="input-field">
             <label htmlFor="name">Ime</label>
@@ -100,32 +128,18 @@ const ProfilePage = () => {
             )}
           </div>
           <div className="input-field">
-            <label htmlFor="password">Lozinka</label>
+            <label htmlFor="password">Nova Lozinka (neobavezno)</label>
             <input
               type="password"
               id="password"
-              {...register("password", {
-                required: {
-                  value: true,
-                  message: "Lozinka je obavezna"
-                },
-                minLength: {
-                  value: 6,
-                  message: "minimalno 6 karaktera"
-                }
-              })}
-              placeholder="Vasa lozinka"
-              required
+              {...register("password")}
+              placeholder="Unesite novu lozinku"
             ></input>
             {errors.password?.message && (
               <p className="error-message">{errors.password?.message}</p>
             )}
           </div>
-          <button
-            type="submit"
-            className="submit-button"
-            disabled={!isValid || isLoading}
-          >
+          <button type="submit" className="submit-button" disabled={!isValid || profileIsLoading }>
             Azuriraj profil
           </button>
           <div className="additional-info"></div>

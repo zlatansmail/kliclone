@@ -1,5 +1,6 @@
 .avatar-container {
     display: flex;
+    align-items: center;
     width: 50%;
     height: 100%;
     overflow: hidden;
@@ -41,6 +42,7 @@
     background-color: rgba(153, 143, 143, 0.516);
     font-size: 1.5rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: 0;
 }
 
 .avatar-icon {
@@ -55,6 +57,7 @@
 }
 
 .delete-button {
+    align-self: center;
     height: 2rem;
     width: 5rem;
     border-radius: 1rem;

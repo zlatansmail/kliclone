@@ -48,4 +48,39 @@ const getUserProfile = async ({ token }) => {
   }
 };
 
-export { signUp, logIn, getUserProfile };
+const updateProfile = async ({ token, userData }) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
+  try {
+    const { data } = await axios.put("/api/users/updateProfile", userData, config);
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error(error.message);
+  }
+};
+
+const updateProfilePicture = async ({ token, formData }) => {
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`
+    }
+  };
+  try {
+    const { data } = await axios.put("/api/users/updateProfilePicture", formData, config);
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error(error.message);
+  }
+};
+
+export { signUp, logIn, getUserProfile, updateProfile, updateProfilePicture };
