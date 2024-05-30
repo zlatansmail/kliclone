@@ -3,13 +3,13 @@ import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
-import ArticlePage from "./components/templates/articlePage/ArticlePage.jsx";
-import Homepage from "./components/templates/homepage/Homepage.jsx";
-import Navigation from "./components/molecules/Navigation.jsx";
-import DropdownMenu from "./components/molecules/DropdownMenu.jsx";
-import RegisterPage from "./components/templates/register/RegisterPage.jsx";
-import LoginPage from "./components/templates/login/LoginPage.jsx";
-import ProfilePage from "./components/templates/profile/ProfilePage.jsx";
+import ArticlePage from "./components/pages/articlePage/ArticlePage.jsx";
+import Homepage from './components/pages/homepage/Homepage.jsx';
+import Navigation from "./components/navigation/Navigation.jsx";
+import DropdownMenu from "./components/navigation/dropdown-menu/DropdownMenu.jsx";
+import RegisterPage from "./components/users/register/RegisterPage.jsx";
+import LoginPage from "./components/users/login/LoginPage.jsx";
+import ProfilePage from "./components/users/profile/ProfilePage.jsx";
 
 const App = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);

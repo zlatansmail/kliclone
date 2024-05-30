@@ -9,7 +9,8 @@ const PostSchema = new Schema(
     photo: { type: String, required: false },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     tags: { type: [String] },
-    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategory" }]
+    sharesNo: { type: Number, default: 0 },
+    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategory" },]
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
@@ -19,6 +20,7 @@ PostSchema.virtual("comments", {
   localField: "_id",
   foreignField: "post"
 });
+
 
 const Post = model("Post", PostSchema);
 

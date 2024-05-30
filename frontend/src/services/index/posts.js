@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getAllPosts = async () => {
     try {
-      const { data } = await axios.post("/api/posts");
+      const { data } = await axios.get("/api/posts");
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
