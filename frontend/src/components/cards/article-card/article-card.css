@@ -14,6 +14,12 @@
   height: 100%;
 }
 
+.article-card a {
+  text-decoration: none;
+  color: inherit;
+
+}
+
 .caption {
   text-transform: uppercase;
   font-size: 0.7rem;

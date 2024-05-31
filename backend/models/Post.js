@@ -7,6 +7,7 @@ const PostSchema = new Schema(
     slug: { type: String, required: true, unique: true },
     body: { type: Object, required: true },
     photo: { type: String, required: false },
+    photoDesc: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     tags: { type: [String] },
     sharesNo: { type: Number, default: 0 },

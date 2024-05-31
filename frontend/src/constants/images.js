@@ -1,7 +1,7 @@
-import HashtagSliderLogo from '../assets/hashtag-slider-logo.png';
+const samplePostImage = '/images/600x400.svg';
 
 const images = {
-  HashtagSliderLogo
+  samplePostImage,
 };
 
 export default images;

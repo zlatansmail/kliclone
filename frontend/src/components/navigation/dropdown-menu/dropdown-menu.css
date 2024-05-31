@@ -3,6 +3,8 @@
 }
 
 .dropdown-menu {
+  margin-left: auto;
+  margin-right: auto;
   position: absolute;
   align-items: center;
   justify-content: center;
@@ -10,10 +12,10 @@
   margin: 0;
   display: flex;
   background-color: var(--fore-bg-color);
-  color: inherit;
+  color: white;
   top: 56px;
   width: 80rem;
-
+  z-index: 1000;
 }
 
 .dropdown-menu a {

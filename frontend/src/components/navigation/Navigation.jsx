@@ -29,11 +29,11 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
   };
 
   return (
-    <div className="navigation-wrapper">
+    <header className="navigation-wrapper">
       <div className="nav-items-wrapper">
         <div className="logo-wrapper">
           <Link to="/">
-            <img className="nav-logo" src="logo.svg" alt="klix logotip" />
+            <img className="nav-logo" src="/logo.svg" alt="klix logotip" />
           </Link>
         </div>
         {navItems.map((item) => (
@@ -83,7 +83,7 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

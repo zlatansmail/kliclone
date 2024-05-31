@@ -10,6 +10,7 @@ import { getUserProfile } from "../../../services/index/users.js";
 import { updateProfile } from "../../../services/index/users.js";
 import { userActions } from "../../../store/reducers/userReducers.js";
 import ProfilePicture from "../profile/profile-picture/ProfilePicture.jsx";
+import MainLayout from "../../MainLayout.jsx";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ const ProfilePage = () => {
   };
 
   return (
+    <MainLayout>
     <section className="register-page-container">
       <div className="register-form-container">
       <h2 className="heading">Moj profil</h2>
@@ -146,6 +148,7 @@ const ProfilePage = () => {
         </form>
       </div>
     </section>
+    </MainLayout>
   );
 };
 

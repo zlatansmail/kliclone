@@ -12,24 +12,12 @@ import LoginPage from "./components/users/login/LoginPage.jsx";
 import ProfilePage from "./components/users/profile/ProfilePage.jsx";
 
 const App = () => {
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
-  const handleDropDownClick = () => {
-    setIsDropDownOpen(!isDropDownOpen);
-  };
   return (
     <>
-      <header className="header">
-        <Navigation
-          handleDropDownClick={handleDropDownClick}
-          isDropDownOpen={isDropDownOpen}
-        />
-        {isDropDownOpen && <DropdownMenu />}
-      </header>
-
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/article-name" element={<ArticlePage />} />
+        <Route index path="/" element={<Homepage />} />
+        <Route path="/clanak/:slug" element={<ArticlePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />

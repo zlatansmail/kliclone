@@ -1,13 +1,32 @@
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: var(--fore-bg-color);
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  max-height: 40px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+}
+
 .navigation-wrapper {
-  position: relative;
+  position: sticky;
   display: flex;
   flex-direction: row;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: nowrap;
   align-items: center;
-  width: 80rem;
+  width: 100%;
+  margin-bottom: 4px;
 }
 
 .navigation {

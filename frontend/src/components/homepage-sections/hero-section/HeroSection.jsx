@@ -7,8 +7,6 @@ import ArticleCard from "../../cards/article-card/ArticleCard.jsx";
 import { getAllPosts } from "../../../services/index/posts.js";
 
 const HeroSection = (post) => {
-
-
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getAllPosts(),
     queryKey: ["posts"],
@@ -45,6 +43,7 @@ const HeroSection = (post) => {
                   createdAt={post.createdAt}
                   sharesNo={post.sharesNo}
                   commentNo={post.commentNo}
+                  slug={post.slug}
                 />
               </div>
             ))}
@@ -60,12 +59,15 @@ const HeroSection = (post) => {
               !isError &&
               data.slice(0, 10).map((post) => (
                 <div className="featured-news-article">
-                  <ArticleCard key={post._id}
-                  title={post.title}
-                  caption={post.caption}
-                  createdAt={post.createdAt}
-                  sharesNo={post.sharesNo}
-                  commentNo={post.commentNo} />
+                  <ArticleCard
+                    key={post._id}
+                    title={post.title}
+                    caption={post.caption}
+                    createdAt={post.createdAt}
+                    sharesNo={post.sharesNo}
+                    commentNo={post.commentNo}
+                    slug={post.slug}
+                  />
                 </div>
               ))}
           </div>
