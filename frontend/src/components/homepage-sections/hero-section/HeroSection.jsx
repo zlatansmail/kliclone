@@ -6,8 +6,8 @@ import "./hero-section.css";
 import ArticleCard from "../../cards/article-card/ArticleCard.jsx";
 import { getAllPosts } from "../../../services/index/posts.js";
 
-const HeroSection = (post) => {
-  const { data, isLoading, isError } = useQuery({
+const HeroSection = () => {
+  const { data: allPostsData, isLoading, isError } = useQuery({
     queryFn: () => getAllPosts(),
     queryKey: ["posts"],
     onError(err) {
@@ -15,6 +15,8 @@ const HeroSection = (post) => {
       console.log(err);
     }
   });
+
+   console.log(allPostsData);
 
   return (
     <section className="hero-section-container">
@@ -33,7 +35,7 @@ const HeroSection = (post) => {
         <div className="hero-articles-container">
           {!isLoading &&
             !isError &&
-            data.slice(0, 7).map((post) => (
+            allPostsData?.data.slice(0, 7).map((post) => (
               <div className="grid-item">
                 <ArticleCard
                   key={post._id}
@@ -57,7 +59,7 @@ const HeroSection = (post) => {
           <div className="featured-news-article-wrapper">
             {!isLoading &&
               !isError &&
-              data.slice(0, 10).map((post) => (
+              allPostsData.data.slice(0, 10).map((post) => (
                 <div className="featured-news-article">
                   <ArticleCard
                     key={post._id}

@@ -1,0 +1,31 @@
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0.75rem;
+}
+
+.comment-user-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.comment-user-details img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.comment-user-details .comment-user {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.comment-user-details .comment-time {
+    color: var(--main-text-color);
+    font-size: 0.75rem;
+}

@@ -1,0 +1,31 @@
+.suggested-news-wrapper .article-card {
+    display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
+  border-bottom: 1px solid rgb(55 65 81);
+  margin-top: 0.2rem;
+}
+
+.suggested-news-wrapper .article-card .article-card-wrapper {
+    display: flex;
+  flex-direction: column;
+}
+
+.suggested-news-wrapper .article-headline {
+    min-height: 1rem;
+  margin: 0;
+}   
+
+.suggested-news-wrapper .article-share-comments-time {
+    margin: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.4rem;
+  vertical-align: text-bottom;
+}
+.suggested-news-wrapper .tagline {
+    margin-bottom: 0.5rem;
+}
+
+.suggested-news-wrapper .article-image-wrapper {
+    display: none;
+}

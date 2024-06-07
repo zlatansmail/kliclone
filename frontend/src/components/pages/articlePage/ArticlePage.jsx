@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 
 import { generateHTML } from "@tiptap/html";
@@ -14,18 +13,18 @@ import Text from "@tiptap/extension-text";
 import "./article-page.css";
 import MainLayout from "../../MainLayout.jsx";
 // eslint-disable-next-line
-import { getSinglePost } from "../../../services/index/posts.js";
+import { getAllPosts, getSinglePost } from "../../../services/index/posts.js";
 import { useParams } from "react-router-dom";
 import stables from "../../../constants/stables.js";
 import images from "../../../constants/images.js";
-import { useSelector } from "react-redux";
+import SuggestedNews from "../../cards/suggested-news/SuggestedNews.jsx";
+import CommentContainer from "../../comment-section/CommentContainer.jsx";
 
-const ArticlePage = () => {
-  const userState = useSelector((state) => state.user);
+const ArticlePage = (post) => {
   const { slug } = useParams();
   const [body, setBody] = useState(null);
 
-  const { data } = useQuery({
+  const { data: singleData } = useQuery({
     queryFn: () => getSinglePost({ slug }),
     queryKey: ["post", { slug }],
     onSuccess: (data) => {
@@ -41,6 +40,14 @@ const ArticlePage = () => {
     }
   });
 
+  const { data: allPostsData, isLoading, isError } = useQuery({
+    queryFn: () => getAllPosts(),
+    queryKey: ["posts"],
+    onError(err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  });
   // let timeSincePost = timeSince(1);
 
   return (
@@ -49,8 +56,8 @@ const ArticlePage = () => {
         <div className="art-grid-container">
           <div className="art-grid-wrapper">
             <div className="art-grid-item art-title-wrapper">
-              <div className="art-caption">{data?.caption}</div>
-              <h1 className="art-title">{data?.title}</h1>
+              <div className="art-caption">{singleData?.caption}</div>
+              <h1 className="art-title">{singleData?.title}</h1>
             </div>
             <div className="art-grid-item art-details">
               <div className="art-author">
@@ -58,21 +65,21 @@ const ArticlePage = () => {
                   className="author-profile-pic"
                   alt=""
                   src={
-                    data?.user?.avatar
-                      ? stables.UPLOAD_FOLDER_BASE_URL + data?.user?.avatar
+                    singleData?.user?.avatar
+                      ? stables.UPLOAD_FOLDER_BASE_URL + singleData?.user?.avatar
                       : images.sampleProfileImage
                   }
                 />
                 <div>
                   <p className="author-name">
-                    {data?.user?.name ? data?.user?.name : "Author"}
+                    {singleData?.user?.name ? singleData?.user?.name : "Author"}
                   </p>
                   <p className="art-time">1dan</p>
                 </div>
               </div>
               <div className="art-numbers">
                 <div className="art-comments">
-                  <div className="art-num">{data?.comments?.length}</div>
+                  <div className="art-num">{singleData?.comments?.length}</div>
                   <div>komentara</div>
                 </div>
                 <div className="art-shares">
@@ -102,49 +109,32 @@ const ArticlePage = () => {
                 <div className="art-image">
                   <img
                     src={
-                      data?.photo
-                        ? stables.UPLOAD_FOLDER_BASE_URL + data?.photo
+                      singleData?.photo
+                        ? stables.UPLOAD_FOLDER_BASE_URL + singleData?.photo
                         : images.samplePostImage
                     }
-                    alt={data?.title}
+                    alt={singleData?.title}
                   />
                   <p className="image-label">Image</p>
                 </div>
                 <div className="art-text">{body}</div>
-                <div className="comments-wrapper">
-                </div>
               </div>
+              <div className="comments-wrapper">
+                  <CommentContainer />
+                </div>
             </div>
             <div className="art-grid-item art-related">
               <div className="featured-news-article-wrapper">
                 <div className="related-heading">
-                  {data?.categories
-                    ? data.categories.map((category) => (
-                        <Link
-                          key={category.name}
-                          to={`/?category=${category.name}`}
-                        >
-                          {category.name}
-                        </Link>
-                      ))
-                    : "Povezane vijesti"}
+                  <div className="related-news">
+                  {!isLoading &&  !isError && 
+                    <SuggestedNews
+                      header={"Povezane vijesti"}
+                      postsData={allPostsData.data}
+                    />
+                    }
+                  </div>
                 </div>
-                {/* {!isLoading &&
-                  !isError &&
-                  
-                  postsData.map((post) => (
-                    <div className="featured-news-article">
-                      <ArticleCard
-                        key={post._id}
-                        title={post.title}
-                        caption={post.caption}
-                        createdAt={post.createdAt}
-                        sharesNo={post.sharesNo}
-                        commentNo={post.commentNo}
-                        slug={post.slug}
-                      />
-                    </div>
-                  ))}  */}
               </div>
             </div>
           </div>

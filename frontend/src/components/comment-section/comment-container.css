@@ -1,0 +1,26 @@
+.comment-form-container {
+    background-color: var(--main-bg-color);
+    padding: 0.75rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comments-container h3 {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 0.75rem;
+    background-color: var(--main-bg-color);
+}
+
+.all-comments-btn {
+    background-color: var(--fore-bg-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+
