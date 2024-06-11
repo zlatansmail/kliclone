@@ -19,8 +19,11 @@ import stables from "../../../constants/stables.js";
 import images from "../../../constants/images.js";
 import SuggestedNews from "../../cards/suggested-news/SuggestedNews.jsx";
 import CommentContainer from "../../comment-section/CommentContainer.jsx";
+import SocialShareButtons from "../../share-buttons/SocialShareButtons.jsx";
+import { useSelector } from "react-redux";
 
 const ArticlePage = (post) => {
+  const userState = useSelector((state) => state.user);
   const { slug } = useParams();
   const [body, setBody] = useState(null);
 
@@ -40,7 +43,11 @@ const ArticlePage = (post) => {
     }
   });
 
-  const { data: allPostsData, isLoading, isError } = useQuery({
+  const {
+    data: allPostsData,
+    isLoading,
+    isError
+  } = useQuery({
     queryFn: () => getAllPosts(),
     queryKey: ["posts"],
     onError(err) {
@@ -49,6 +56,14 @@ const ArticlePage = (post) => {
     }
   });
   // let timeSincePost = timeSince(1);
+
+  const getCurrentURL = () => {
+    return window.location.href;
+  };
+
+  const currentUrl = getCurrentURL();
+
+  console.log(singleData);
 
   return (
     <MainLayout>
@@ -66,7 +81,8 @@ const ArticlePage = (post) => {
                   alt=""
                   src={
                     singleData?.user?.avatar
-                      ? stables.UPLOAD_FOLDER_BASE_URL + singleData?.user?.avatar
+                      ? stables.UPLOAD_FOLDER_BASE_URL +
+                        singleData?.user?.avatar
                       : images.sampleProfileImage
                   }
                 />
@@ -88,20 +104,10 @@ const ArticlePage = (post) => {
                 </div>
               </div>
               <div className="art-share">
-                <div className="share-icons-grid">
-                  <div className="share-grid-social-icon">
-                    <img alt="share on facebook" src="/social/fb.svg" />
-                  </div>
-                  <div className="share-grid-social-icon">
-                    <img alt="share on twitter" src="/social/x.svg" />
-                  </div>
-                  <div className="share-grid-social-icon">
-                    <img alt="share with mail" src="/social/mail.svg" />
-                  </div>
-                  <div className="share-grid-social-icon">
-                    <img alt="share on viber" src="/social/vib.svg" />
-                  </div>
-                </div>
+                <SocialShareButtons
+                  url={encodeURI(currentUrl)}
+                  title={encodeURIComponent(singleData?.title)}
+                />
               </div>
             </div>
             <div className="art-grid-item">
@@ -120,19 +126,23 @@ const ArticlePage = (post) => {
                 <div className="art-text">{body}</div>
               </div>
               <div className="comments-wrapper">
-                  <CommentContainer />
-                </div>
+                <CommentContainer
+                  comments={singleData?.comments}
+                  loggedInUserId={userState?.userInfo?._id}
+                  postSlug={slug}
+                />
+              </div>
             </div>
             <div className="art-grid-item art-related">
               <div className="featured-news-article-wrapper">
                 <div className="related-heading">
                   <div className="related-news">
-                  {!isLoading &&  !isError && 
-                    <SuggestedNews
-                      header={"Povezane vijesti"}
-                      postsData={allPostsData.data}
-                    />
-                    }
+                    {!isLoading && !isError && (
+                      <SuggestedNews
+                        header={"Povezane vijesti"}
+                        postsData={allPostsData.data}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

@@ -117,7 +117,13 @@ const getPosts = async (req, res, next) => {
             path: "replies",
             match: {
               check: true
-            }
+            },
+            populate: [
+              {
+                path: "user",
+                select: ["avatar", "name"]
+              }
+            ]
           }
         ]
       }

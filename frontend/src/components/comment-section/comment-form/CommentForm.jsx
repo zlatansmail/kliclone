@@ -3,8 +3,15 @@ import { MdOutlineEdit } from "react-icons/md";
 
 import "./comment-form.css";
 
-const CommentForm = ({ btnLable, formSubmitHandler }) => {
-  const [value, setValue] = useState("");
+const CommentForm = ({
+  btnLable,
+  formSubmitHandler,
+  formCancelHandler = null,
+  initialText = "",
+  loading = false
+}) => {
+  const [value, setValue] = useState(initialText);
+
   const submitHandler = (e) => {
     e.preventDefault();
     formSubmitHandler(value);
@@ -21,10 +28,17 @@ const CommentForm = ({ btnLable, formSubmitHandler }) => {
             value={value}
             onChange={(e) => setValue(e.target.value)}
           ></textarea>
-          <button type="submit">
-            <MdOutlineEdit />
-            {btnLable}
-          </button>
+          <div className="">
+            {formCancelHandler && (
+              <button onClick={formCancelHandler} className="btn-cancel">
+                Otkazi
+              </button>
+            )}
+            <button disabled={loading} type="submit">
+              <MdOutlineEdit />
+              {btnLable}
+            </button>
+          </div>
         </div>
       </form>
     </div>

@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
+
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(invalidRouteHandler);

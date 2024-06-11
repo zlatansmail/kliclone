@@ -7,11 +7,10 @@ const PostSchema = new Schema(
     slug: { type: String, required: true, unique: true },
     body: { type: Object, required: true },
     photo: { type: String, required: false },
-    photoDesc: { type: String, required: true },
+    photoDesc: { type: String },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     tags: { type: [String] },
-    sharesNo: { type: Number, default: 0 },
-    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategory" },]
+    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategories" },]
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

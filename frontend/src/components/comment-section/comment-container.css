@@ -1,11 +1,12 @@
 .comment-form-container {
+    display: flex;
     background-color: var(--main-bg-color);
     padding: 0.75rem;
     flex-direction: column;
     align-items: center;
 }
 
-.comments-container h3 {
+.all-comments-container h3 {
     box-sizing: border-box;
     width: 100%;
     margin: 0;
@@ -23,4 +24,11 @@
     cursor: pointer;
 }
 
+.comment-container .form-container {
+    background-color: var(--fore-bg-color);
+}
+
+.comment-container .form-container textarea {
+    background-color: var(--fore-bg-color);
+}
 

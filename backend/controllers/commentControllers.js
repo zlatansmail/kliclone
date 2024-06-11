@@ -21,7 +21,6 @@ const createComment = async (req, res, next) => {
     });
 
     const savedComment = await newComment.save();
-
     return res.json(savedComment);
   } catch (error) {
     next(error);

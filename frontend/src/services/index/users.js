@@ -32,12 +32,12 @@ const logIn = async ({ email, password }) => {
 };
 
 const getUserProfile = async ({ token }) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
   try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
     const { data } = await axios.get("/api/users/profile", config);
     return data;
   } catch (error) {
@@ -49,13 +49,17 @@ const getUserProfile = async ({ token }) => {
 };
 
 const updateProfile = async ({ token, userData }) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
   try {
-    const { data } = await axios.put("/api/users/updateProfile", userData, config);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+    const { data } = await axios.put(
+      "/api/users/updateProfile",
+      userData,
+      config
+    );
     return data;
   } catch (error) {
     if (error.response && error.response.data.message) {
@@ -73,7 +77,11 @@ const updateProfilePicture = async ({ token, formData }) => {
     }
   };
   try {
-    const { data } = await axios.put("/api/users/updateProfilePicture", formData, config);
+    const { data } = await axios.put(
+      "/api/users/updateProfilePicture",
+      formData,
+      config
+    );
     return data;
   } catch (error) {
     if (error.response && error.response.data.message) {
