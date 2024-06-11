@@ -9,7 +9,7 @@ const SuggestedNews = ({ header, postsData = [] }) => {
     <div>
       <h2>{header}</h2>
       <div className="suggested-news-wrapper">
-        {postsData.slice(0, 4).map((item) => {
+        {postsData.slice(0, 5).map((item) => {
           return (
             <ArticleCard
               key={item._id}

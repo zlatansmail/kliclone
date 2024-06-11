@@ -6,6 +6,7 @@ import { MdDeleteForever } from "react-icons/md";
 import "./comment.css";
 import images from "../../../constants/images.js";
 import CommentForm from "../comment-form/CommentForm.jsx";
+import stables from "../../../constants/stables.js";
 
 const Comment = ({
   comment,
@@ -38,7 +39,11 @@ const Comment = ({
     <div className="comment-container">
       <div className="comment-user-details">
         <img
-          src={comment?.user?.avatar || images.sampleUserImage}
+          src={
+            comment?.user?.avatar
+              ? stables.UPLOAD_FOLDER_BASE_URL + comment?.user?.avatar
+              : images.sampleProfileImage
+          }
           alt="user avatar"
         />
         <div className="comment-user-name-time">
@@ -100,7 +105,6 @@ const Comment = ({
           btnLable={"Odgovori"}
           formSubmitHandler={(value) => {
             addComment(value, repliedCommentId, replyOnUserId);
-            
           }}
           formCancelHandler={() => setAffectedComment(null)}
         />

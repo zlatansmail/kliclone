@@ -22,12 +22,16 @@ import CommentContainer from "../../comment-section/CommentContainer.jsx";
 import SocialShareButtons from "../../share-buttons/SocialShareButtons.jsx";
 import { useSelector } from "react-redux";
 
-const ArticlePage = (post) => {
+const ArticlePage = () => {
   const userState = useSelector((state) => state.user);
   const { slug } = useParams();
   const [body, setBody] = useState(null);
 
-  const { data: singleData } = useQuery({
+  const {
+    data: singleData,
+    isLoading: isPostLoading,
+    isError: isPostError
+  } = useQuery({
     queryFn: () => getSinglePost({ slug }),
     queryKey: ["post", { slug }],
     onSuccess: (data) => {
@@ -45,8 +49,8 @@ const ArticlePage = (post) => {
 
   const {
     data: allPostsData,
-    isLoading,
-    isError
+    isLoading :isNewsLoading,
+    isError: isNewsError
   } = useQuery({
     queryFn: () => getAllPosts(),
     queryKey: ["posts"],
@@ -63,7 +67,6 @@ const ArticlePage = (post) => {
 
   const currentUrl = getCurrentURL();
 
-  console.log(singleData);
 
   return (
     <MainLayout>
@@ -126,18 +129,20 @@ const ArticlePage = (post) => {
                 <div className="art-text">{body}</div>
               </div>
               <div className="comments-wrapper">
-                <CommentContainer
-                  comments={singleData?.comments}
-                  loggedInUserId={userState?.userInfo?._id}
-                  postSlug={slug}
-                />
+                {!isPostLoading && !isPostError && (
+                  <CommentContainer
+                    comments={singleData?.comments}
+                    loggedInUserId={userState?.userInfo?._id}
+                    postSlug={slug}
+                  />
+                )}
               </div>
             </div>
             <div className="art-grid-item art-related">
               <div className="featured-news-article-wrapper">
                 <div className="related-heading">
                   <div className="related-news">
-                    {!isLoading && !isError && (
+                    {!isNewsLoading && !isNewsError && (
                       <SuggestedNews
                         header={"Povezane vijesti"}
                         postsData={allPostsData.data}

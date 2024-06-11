@@ -4,7 +4,7 @@ import {
   createPost,
   updatePost,
   deletePost,
-  getPosts,
+  getPost,
   getAllPosts
 } from "../controllers/postControllers.js";
 import { authGuard, adminGuard } from "../middleware/authMiddleware.js";
@@ -16,6 +16,6 @@ router
   .route("/:slug")
   .put(authGuard, adminGuard, updatePost)
   .delete(authGuard, adminGuard, deletePost)
-  .get(getPosts);
+  .get(getPost);
 
 export default router;

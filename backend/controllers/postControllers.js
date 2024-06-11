@@ -95,7 +95,7 @@ const deletePost = async (req, res, next) => {
   }
 };
 
-const getPosts = async (req, res, next) => {
+const getPost = async (req, res, next) => {
   try {
     const posts = await Post.findOne({ slug: req.params.slug }).populate([
       {
@@ -155,4 +155,4 @@ const getAllPosts = async (req, res, next) => {
   }
 };
 
-export { createPost, updatePost, deletePost, getPosts, getAllPosts };
+export { createPost, updatePost, deletePost, getPost, getAllPosts };
