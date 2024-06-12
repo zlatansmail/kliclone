@@ -7,7 +7,11 @@ import ArticleCard from "../../cards/article-card/ArticleCard.jsx";
 import { getAllPosts } from "../../../services/index/posts.js";
 
 const HeroSection = () => {
-  const { data: allPostsData, isLoading, isError } = useQuery({
+  const {
+    data: allPostsData,
+    isLoading,
+    isError
+  } = useQuery({
     queryFn: () => getAllPosts(),
     queryKey: ["posts"],
     onError(err) {
@@ -15,8 +19,6 @@ const HeroSection = () => {
       console.log(err);
     }
   });
-
-   console.log(allPostsData);
 
   return (
     <section className="hero-section-container">
@@ -32,25 +34,26 @@ const HeroSection = () => {
             <li className="hashtag-item">#NOVO</li>
           </ul>
         </div>
-        <div className="hero-articles-container">
+        <div className="hero-articles-container ">
           {!isLoading &&
             !isError &&
             allPostsData?.data.slice(0, 7).map((post) => (
               <div className="grid-item">
                 <ArticleCard
                   key={post._id}
+                  slug={post.slug}
+                  categories={post.categories}
                   title={post.title}
                   caption={post.caption}
                   photo={post.photo}
                   createdAt={post.createdAt}
                   sharesNo={post.sharesNo}
-                  commentNo={post.commentNo}
-                  slug={post.slug}
+                  comments={post.comments}
                 />
               </div>
             ))}
         </div>
-        <div className="featured-news-wrapper">
+        <div className="featured-news-wrapper ">
           <div className="featured-news-buttons-wrapper">
             <div className="featured-news-button">Najnovije</div>
             <div className="featured-news-button">Najčitanije</div>
@@ -67,8 +70,9 @@ const HeroSection = () => {
                     caption={post.caption}
                     createdAt={post.createdAt}
                     sharesNo={post.sharesNo}
-                    commentNo={post.commentNo}
                     slug={post.slug}
+                    post={post}
+                    comments={post.comments}
                   />
                 </div>
               ))}

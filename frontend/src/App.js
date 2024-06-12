@@ -1,18 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
 import ArticlePage from "./components/pages/articlePage/ArticlePage.jsx";
-import Homepage from './components/pages/homepage/Homepage.jsx';
-import Navigation from "./components/navigation/Navigation.jsx";
-import DropdownMenu from "./components/navigation/dropdown-menu/DropdownMenu.jsx";
+import Homepage from "./components/pages/homepage/Homepage.jsx";
 import RegisterPage from "./components/users/register/RegisterPage.jsx";
 import LoginPage from "./components/users/login/LoginPage.jsx";
 import ProfilePage from "./components/users/profile/ProfilePage.jsx";
+import AdminDashboard from "./components/pages/admin/AdminDashboard.jsx";
+import Admin from "./components/pages/admin/screens/admin/Admin.jsx";
+import Comments from "./components/pages/admin/screens/comments/Comments.jsx";
+import AddPost from "./components/pages/admin/screens/addPost/AddPost.jsx";
+import ManagePosts from "./components/pages/admin/screens/managePosts/ManagePosts.jsx";
 
 const App = () => {
-
   return (
     <>
       <Routes>
@@ -21,6 +22,12 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/dashboard" element={<AdminDashboard />}>
+          <Route index element={<Admin />} />
+          <Route path="comments" element={<Comments />} />
+          <Route path="articles/new" element={<AddPost />} />
+          <Route path="articles/manage" element={<ManagePosts />} />
+        </Route>
       </Routes>
       <Toaster />
     </>

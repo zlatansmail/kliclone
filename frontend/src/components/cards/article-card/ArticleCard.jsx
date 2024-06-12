@@ -14,8 +14,7 @@ export const ArticleCard = ({
   photo,
   createdAt,
   sharesNo,
-  commentNo,
-  post
+  comments = []
 }) => {
   const getCategoryColor = (categories) => {
     if (!categories) return "white";
@@ -58,7 +57,7 @@ export const ArticleCard = ({
               />
             </div>
           </Link>
-          
+
           <div className="article-details-container">
             <div
               className="caption"
@@ -69,20 +68,20 @@ export const ArticleCard = ({
               {caption}
             </div>
             <Link to={`/clanak/${slug}`}>
-            <h2 className="article-title">{title}</h2>
+              <h2 className="article-title">{title}</h2>
             </Link>
           </div>
-          
+
           <div className="article-share-comments-time">
             <div>{timeSincePost}</div>
             <div className="article-shares-comments">
               <div className="article-shares">
                 <img src="/shares.svg" alt="shares" />
-                {sharesNo}
+                {sharesNo || 0}
               </div>
               <div className="article-comments">
                 <img src="/comments.svg" alt="comments" />
-                {commentNo}
+                {comments.length}
               </div>
             </div>
           </div>

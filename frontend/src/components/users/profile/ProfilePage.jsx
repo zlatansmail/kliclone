@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,10 +66,12 @@ const ProfilePage = () => {
       email: "",
       password: ""
     },
-    values: {
-      name: profileIsLoading ? "" : profileData?.name,
-      email: profileIsLoading ? "" : profileData?.email
-    },
+    values: useMemo(() => {
+      return {
+        name: profileIsLoading ? "" : profileData?.name,
+        email: profileIsLoading ? "" : profileData?.email
+      };
+    }, [profileData?.name, profileData?.email, profileIsLoading]),
     mode: "onChange"
   });
 
@@ -80,74 +82,78 @@ const ProfilePage = () => {
 
   return (
     <MainLayout>
-    <section className="register-page-container">
-      <div className="register-form-container">
-      <h2 className="heading">Moj profil</h2>
-        <ProfilePicture avatar={profileData?.avatar} />
-        <form className="form" onSubmit={handleSubmit(submitHandler)}>
-          <div className="input-field">
-            <label htmlFor="name">Ime</label>
-            <input
-              type="name"
-              id="name"
-              {...register("name", {
-                minLength: {
-                  value: 1,
-                  message: "Ime mora imati minimalno 1 karakter"
-                },
-                required: {
-                  value: true,
-                  message: "Ime je obavezno"
-                }
-              })}
-              placeholder="Vase ime"
-              required
-            ></input>
-            {errors.name?.message && (
-              <p className="error-message">{errors.name?.message}</p>
-            )}
-          </div>
-          <div className="input-field">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              {...register("email", {
-                pattern: {
-                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: "Email nije validan"
-                },
-                required: {
-                  value: true,
-                  message: "Email je obavezan"
-                }
-              })}
-              placeholder="Vas email"
-              required
-            ></input>
-            {errors.email?.message && (
-              <p className="error-message">{errors.email?.message}</p>
-            )}
-          </div>
-          <div className="input-field">
-            <label htmlFor="password">Nova Lozinka (neobavezno)</label>
-            <input
-              type="password"
-              id="password"
-              {...register("password")}
-              placeholder="Unesite novu lozinku"
-            ></input>
-            {errors.password?.message && (
-              <p className="error-message">{errors.password?.message}</p>
-            )}
-          </div>
-          <button type="submit" className="submit-button" disabled={!isValid || profileIsLoading }>
-            Azuriraj profil
-          </button>
-          <div className="additional-info"></div>
-        </form>
-      </div>
-    </section>
+      <section className="register-page-container">
+        <div className="register-form-container">
+          <h2 className="heading">Moj profil</h2>
+          <ProfilePicture avatar={profileData?.avatar} />
+          <form className="form" onSubmit={handleSubmit(submitHandler)}>
+            <div className="input-field">
+              <label htmlFor="name">Ime</label>
+              <input
+                type="name"
+                id="name"
+                {...register("name", {
+                  minLength: {
+                    value: 1,
+                    message: "Ime mora imati minimalno 1 karakter"
+                  },
+                  required: {
+                    value: true,
+                    message: "Ime je obavezno"
+                  }
+                })}
+                placeholder="Vase ime"
+                required
+              ></input>
+              {errors.name?.message && (
+                <p className="error-message">{errors.name?.message}</p>
+              )}
+            </div>
+            <div className="input-field">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                {...register("email", {
+                  pattern: {
+                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                    message: "Email nije validan"
+                  },
+                  required: {
+                    value: true,
+                    message: "Email je obavezan"
+                  }
+                })}
+                placeholder="Vas email"
+                required
+              ></input>
+              {errors.email?.message && (
+                <p className="error-message">{errors.email?.message}</p>
+              )}
+            </div>
+            <div className="input-field">
+              <label htmlFor="password">Nova Lozinka (neobavezno)</label>
+              <input
+                type="password"
+                id="password"
+                {...register("password")}
+                placeholder="Unesite novu lozinku"
+              ></input>
+              {errors.password?.message && (
+                <p className="error-message">{errors.password?.message}</p>
+              )}
+            </div>
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={!isValid || profileIsLoading}
+            >
+              Azuriraj profil
+            </button>
+            <div className="additional-info"></div>
+          </form>
+        </div>
+      </section>
     </MainLayout>
   );
 };

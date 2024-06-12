@@ -63,6 +63,11 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
             <ul>
               {userState.userInfo ? (
                 <>
+                  {userState?.userInfo?.admin && (
+                    <li onClick={() => navigate("/dashboard")}>
+                      Admin Dashboard
+                    </li>
+                  )}
                   <li onClick={logoutHandler}>Odjavite se</li>
                   <li onClick={() => navigate("/profile")}>Moj Profil</li>
                 </>

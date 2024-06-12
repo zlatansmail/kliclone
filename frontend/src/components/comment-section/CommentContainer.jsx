@@ -87,7 +87,7 @@ const CommentContainer = ({ loggedInUserId, comments, postSlug }) => {
   return (
     <div className="all-comments-container">
       <div className="comment-form-container">
-        <h3>Komentari</h3>
+        <h3>Komentari({comments.length})</h3>
         <CommentForm
           btnLable={"Objavi komentar"}
           formSubmitHandler={(value) => {

@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { parse, v4 as uuidv4 } from "uuid";
 
 import { uploadPicture } from "../middleware/uploadPictureMiddleware.js";
 import Post from "../models/Post.js";
@@ -140,18 +140,77 @@ const getPost = async (req, res, next) => {
   }
 };
 
+
 const getAllPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find({}).populate([
-      {
-        path: "user",
-        select: ["avatar", "name"]
-      }
-    ]);
+    const filter = req.query.searchKeyword;
+    let where = {};
+    if (filter) {
+      where.title = {
+        $regex: filter,
+        $options: "i"
+      };
+    }
+    let query = Post.find(where);
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.limit) || 15;
+    const skip = (page - 1) * pageSize;
+    const total = await Post.countDocuments();
+    const pages = Math.ceil(total / pageSize);
 
-    return res.json(posts);
-  } catch (error) {
-    next(error);
+    if (page > pages) {
+      let error = new Error("Nije pronadjen nijedan clanak");
+      return next(error);
+    }
+
+    const result = await query
+      .skip(skip)
+      .limit(pageSize)
+      .populate([
+        {
+          path: "user",
+          select: ["avatar", "name"]
+        },
+        {
+          path: "comments",
+          match: {
+            check: true,
+            parent: null
+          },
+          populate: [
+            {
+              path: "user",
+              select: ["avatar", "name"]
+            },
+            {
+              path: "replies",
+              match: {
+                check: true
+              },
+              populate: [
+                {
+                  path: "user",
+                  select: ["avatar", "name"]
+                }
+              ]
+            }
+          ]
+        }
+      ])
+      .sort({ updatedAt: "desc" });
+
+    res.header({
+      "x-filter": filter,
+      "x-totalcount": JSON.stringify(total),
+      "x-currentpage": JSON.stringify(page),
+      "x-pagesize": JSON.stringify(pageSize),
+      "x-totalpagecount": JSON.stringify(pages)
+    });
+
+    return res.json(result);
+  } catch {
+    let error = new Error("Posts not found");
+    return next(error);
   }
 };
 

@@ -112,8 +112,14 @@
   border-right: 0.125rem solid rgb(55 65 81);
 }
 
+.grid-item {
+
+}
+
 .featured-news-wrapper {
-  max-height: 62.5vh;
+  box-sizing: border-box;
+  max-height: 100%;
+  max-height: 62.5vh; 
   background-color: var(--fore-bg-color);
   overflow-y: auto;
   scrollbar-width: none;

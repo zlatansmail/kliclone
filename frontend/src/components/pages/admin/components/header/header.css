@@ -1,0 +1,117 @@
+
+
+.underlay {
+    display: none;
+    
+}
+.menu-icon {
+    display: none;
+}
+.header-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex: none;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.75rem 0.75rem;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.dropdown-nav-items {
+    padding: 0.75rem 0;
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fore-bg-color);
+}
+
+@media only screen and (max-width: 1024px) {
+
+    .underlay {
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .menu-icon {
+        display: flex;
+    }
+
+    .sidebar {
+        height: 100%;
+        width: 20rem;
+        position: fixed;
+        /* Stay in place */
+        z-index: 999;
+        /* Stay on top */
+        top: 0;
+        /* Stay at the top */
+        left: 0;
+        background-color: rgb(55 65 81);
+        /* Black*/
+        overflow-x: hidden;
+        padding-top: 60px;
+        transition: 0.5s;
+        color: var(--text-color);
+    }
+
+    .sidebar-inner {
+        padding: 0 1rem;
+        width: 100%;
+    }
+
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+}
+
+/* .header-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.75rem 0.75rem;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-icon {
+    display: none;
+}
+
+.sidebar {
+    height: 100%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20rem;
+    background-color: rgb(55 65 81);
+    padding-top: 60px;
+    color: var(--text-color);
+}
+
+.sidebar-logo {
+    display: none;
+}
+
+.sidebar-inner {
+    height: 100%;
+    padding: 0 1rem;
+    width: 100%;
+} */

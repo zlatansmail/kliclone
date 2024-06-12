@@ -5,6 +5,7 @@ import "./suggested-news.css";
 import ArticleCard from "../article-card/ArticleCard.jsx";
 
 const SuggestedNews = ({ header, postsData = [] }) => {
+  console.log(postsData);
   return (
     <div>
       <h2>{header}</h2>
@@ -17,7 +18,7 @@ const SuggestedNews = ({ header, postsData = [] }) => {
               caption={item.caption}
               createdAt={item.createdAt}
               sharesNo={item.sharesNo}
-              commentNo={item.commentNo}
+              comments={item.comments}
               slug={item.slug}
             />
           );
@@ -28,20 +29,3 @@ const SuggestedNews = ({ header, postsData = [] }) => {
 };
 
 export default SuggestedNews;
-
-/* <div className="suggested-news-item" key={postsData._id}>
-          <div className="suggested-news-item-image">
-            <img
-              src={
-                postsData?.photo
-                  ? stables.UPLOAD_FOLDER_BASE_URL + postsData?.photo
-                  : images.samplePostImage
-              }
-              alt={postsData?.title}
-            />
-          </div>
-          <div className="suggested-news-item-text">
-            <div className="suggested-news-item-title">{postsData.title}</div>
-            <div className="suggested-news-item-date">{postsData.createdAt}</div>
-          </div>
-        </div> */

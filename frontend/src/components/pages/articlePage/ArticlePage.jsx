@@ -21,6 +21,7 @@ import SuggestedNews from "../../cards/suggested-news/SuggestedNews.jsx";
 import CommentContainer from "../../comment-section/CommentContainer.jsx";
 import SocialShareButtons from "../../share-buttons/SocialShareButtons.jsx";
 import { useSelector } from "react-redux";
+import { timeSince } from "../../../utils/timeSince.js";
 
 const ArticlePage = () => {
   const userState = useSelector((state) => state.user);
@@ -49,7 +50,7 @@ const ArticlePage = () => {
 
   const {
     data: allPostsData,
-    isLoading :isNewsLoading,
+    isLoading: isNewsLoading,
     isError: isNewsError
   } = useQuery({
     queryFn: () => getAllPosts(),
@@ -67,7 +68,7 @@ const ArticlePage = () => {
 
   const currentUrl = getCurrentURL();
 
-
+  let timeSincePost = timeSince(singleData?.createdAt);
   return (
     <MainLayout>
       <section className="art-page">
@@ -93,7 +94,7 @@ const ArticlePage = () => {
                   <p className="author-name">
                     {singleData?.user?.name ? singleData?.user?.name : "Author"}
                   </p>
-                  <p className="art-time">1dan</p>
+                  <p className="art-time">{timeSincePost}</p>
                 </div>
               </div>
               <div className="art-numbers">
@@ -128,6 +129,13 @@ const ArticlePage = () => {
                 </div>
                 <div className="art-text">{body}</div>
               </div>
+              <div className="tags">
+                {singleData?.tags?.map((tag) => (
+                  <div key={tag} className="tag">
+                    {tag}
+                  </div>
+                ))}
+              </div>
               <div className="comments-wrapper">
                 {!isPostLoading && !isPostError && (
                   <CommentContainer
@@ -146,6 +154,7 @@ const ArticlePage = () => {
                       <SuggestedNews
                         header={"Povezane vijesti"}
                         postsData={allPostsData.data}
+                        comments={allPostsData.data.comments}
                       />
                     )}
                   </div>
