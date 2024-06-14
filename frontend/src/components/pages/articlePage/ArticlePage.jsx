@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import toast from "react-hot-toast";
-import parse from "html-react-parser";
 
-import { generateHTML } from "@tiptap/html";
-import Bold from "@tiptap/extension-bold";
-import Italic from "@tiptap/extension-italic";
-import Document from "@tiptap/extension-document";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
 
 import "./article-page.css";
 import MainLayout from "../../MainLayout.jsx";
@@ -22,6 +15,7 @@ import CommentContainer from "../../comment-section/CommentContainer.jsx";
 import SocialShareButtons from "../../share-buttons/SocialShareButtons.jsx";
 import { useSelector } from "react-redux";
 import { timeSince } from "../../../utils/timeSince.js";
+import parseJsonToHtml from "../../../utils/parseJsonToHtml.js";
 
 const ArticlePage = () => {
   const userState = useSelector((state) => state.user);
@@ -36,11 +30,7 @@ const ArticlePage = () => {
     queryFn: () => getSinglePost({ slug }),
     queryKey: ["post", { slug }],
     onSuccess: (data) => {
-      setBody(
-        parse(
-          generateHTML(data?.body, [Bold, Italic, Document, Paragraph, Text])
-        )
-      );
+      setBody(parseJsonToHtml(data?.body));
     },
     onError(err) {
       toast.error(err.message);
@@ -155,6 +145,7 @@ const ArticlePage = () => {
                         header={"Povezane vijesti"}
                         postsData={allPostsData.data}
                         comments={allPostsData.data.comments}
+                        currentPostSlug={singleData?.slug}
                       />
                     )}
                   </div>

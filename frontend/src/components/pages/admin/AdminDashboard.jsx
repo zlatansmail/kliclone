@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./components/header/Header";
 import { Outlet, useNavigate } from "react-router-dom";
-
-import "./admin-dashboard.css";
 import { useQuery } from "react-query";
-import { getUserProfile } from "../../../services/index/users";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+
+import "./admin-dashboard.css";
+import { getUserProfile } from "../../../services/index/users.js";
 
 const AdminDashboard = () => {
   const userState = useSelector((state) => state.user);

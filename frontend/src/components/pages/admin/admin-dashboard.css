@@ -1,7 +1,7 @@
-.admin-dashboard {
-    display: flex;
-}
 
 .main-content {
     margin-top: 56px;
+    width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import cors from "cors";
 
 import connectDB from "./config/db.js";
 import {
@@ -24,6 +25,8 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Server is running");

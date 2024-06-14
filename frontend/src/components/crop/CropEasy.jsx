@@ -38,6 +38,7 @@ const CropEasy = ({ photo, setOpenCrop }) => {
       }
     }
   );
+  
   const isLoading = mutation.isLoading;
 
   const handleCropComplete = (croppedArea, croppedAreaPixels) => {
