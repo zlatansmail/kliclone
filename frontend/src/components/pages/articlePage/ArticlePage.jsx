@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import toast from "react-hot-toast";
-
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import "./article-page.css";
 import MainLayout from "../../MainLayout.jsx";
-// eslint-disable-next-line
-import { getAllPosts, getSinglePost } from "../../../services/index/posts.js";
-import { useParams } from "react-router-dom";
-import stables from "../../../constants/stables.js";
-import images from "../../../constants/images.js";
 import SuggestedNews from "../../cards/suggested-news/SuggestedNews.jsx";
 import CommentContainer from "../../comment-section/CommentContainer.jsx";
 import SocialShareButtons from "../../share-buttons/SocialShareButtons.jsx";
-import { useSelector } from "react-redux";
+import Editor from "../../editor/Editor.jsx";
+
+import stables from "../../../constants/stables.js";
+import images from "../../../constants/images.js";
+import { getAllPosts, getSinglePost } from "../../../services/index/posts.js";
 import { timeSince } from "../../../utils/timeSince.js";
 import parseJsonToHtml from "../../../utils/parseJsonToHtml.js";
+import { all } from "axios";
 
 const ArticlePage = () => {
   const userState = useSelector((state) => state.user);
@@ -117,7 +118,16 @@ const ArticlePage = () => {
                   />
                   <p className="image-label">Image</p>
                 </div>
-                <div className="art-text">{body}</div>
+                <div className="article-content">
+              <div>
+                {!isPostLoading && !isPostError && (
+                  <Editor
+                    content={singleData?.body}
+                    editable={false}
+                  />
+                )}
+              </div>
+            </div>
               </div>
               <div className="tags">
                 {singleData?.tags?.map((tag) => (
@@ -142,7 +152,7 @@ const ArticlePage = () => {
                   <div className="related-news">
                     {!isNewsLoading && !isNewsError && (
                       <SuggestedNews
-                        header={"Povezane vijesti"}
+                        header={allPostsData?.data[0]?.categories[0]?.title}
                         postsData={allPostsData.data}
                         comments={allPostsData.data.comments}
                         currentPostSlug={singleData?.slug}

@@ -1,0 +1,44 @@
+.editor-menu-bar-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: .1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    height: 40px;
+    background-color: #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.editor-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.75);
+    text-decoration: underline;
+}
+
+.editor-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.font-extrabold {
+    font-weight: 800;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+.false {
+    background-color: #717070;
+    text-decoration: none;
+}

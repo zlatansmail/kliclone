@@ -1,22 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { HiOutlineCamera } from "react-icons/hi";
+import CreatableSelect from "react-select/creatable";
 
+import "./edit-post.css";
 import { getSinglePost, updatePost } from "../../../../../services/index/posts";
-import parseJsonToHtml from "../../../../../utils/parseJsonToHtml";
 import stables from "../../../../../constants/stables";
 import toast from "react-hot-toast";
+import {
+  categoryToOption,
+  filterCategories
+} from "../../../../../utils/multiSelectTagUtils.js";
+
+import Editor from "../../../../editor/Editor";
+import MultiSelectDropdown from "../../../../common/select-dropdown/MultiSelectDropdown";
+import { getAllCategories } from "../../../../../services/index/categories.js";
+
+const promiseOptions = async (inputValue) => {
+  const categoriesData = await getAllCategories();
+  return filterCategories(inputValue, categoriesData);
+};
 
 const EditPost = () => {
-  const userState = useSelector((state) => state.user);
   const { slug } = useParams();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
+  const userState = useSelector((state) => state.user);
+
+  const [title, setTitle] = useState(null);
   const [initialPhoto, setInitialPhoto] = useState(null);
+  const [categories, setCategories] = useState(null);
+  const [tags, setTags] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [body, setBody] = useState(null);
+  const [postSlug, setPostSlug] = useState(slug);
+  const [caption, setCaption] = useState("");
 
   const {
     data: postData,
@@ -24,7 +45,14 @@ const EditPost = () => {
     isError: isPostError
   } = useQuery({
     queryFn: () => getSinglePost({ slug }),
-    queryKey: ["post", slug]
+    queryKey: ["post", slug],
+    onSuccess: (data) => {
+      setInitialPhoto(data?.photo);
+      setCategories(data.categories.map((item) => item._id));
+      setTitle(data.title);
+      setTags(data.tags);
+    },
+    refetchOnWindowFocus: false,
   });
 
   const {
@@ -37,19 +65,15 @@ const EditPost = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["post", slug]);
       toast.success("Clanaak je uspesno azuriran");
+      navigate(`/dashboard/articles/manage/edit/${data.slug}`, {
+        replace: true
+      });
     },
     onError: (err) => {
       toast.error(err.message);
       console.log(err);
     }
   });
-
-  useEffect(() => {
-    if (!isPostLoading && !isPostError) {
-      setInitialPhoto(postData?.photo);
-      setBody(parseJsonToHtml(postData?.body));
-    }
-  }, [postData, isPostLoading, isPostError]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -75,7 +99,10 @@ const EditPost = () => {
       updatedData.append("postPicture", picture);
     }
 
-    updatedData.append("document", JSON.stringify({}));
+    updatedData.append(
+      "document",
+      JSON.stringify({ body, categories, title, tags, slug: postSlug, caption })
+    );
 
     mutateUpdatePostDetails({
       updatedData,
@@ -91,13 +118,80 @@ const EditPost = () => {
     }
   };
 
+  let isPostDataLoaded = !isPostLoading && !isPostError;
+
   return (
     <div>
       <section>
         <article>
           <h1>Edit Post</h1>
           <div className="edit-article-container">
-            <div className="article-title">{postData?.title}</div>
+            <div className="title-input-wrapper">
+              <label htmlFor="title" className="title-label">
+                <span className="">Naslov clanka</span>
+              </label>
+              <input
+                id="title"
+                className="title-input"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Title"
+              />
+            </div>
+            <div className="caption-input-wrapper">
+              <label htmlFor="caption" className="caption-label">
+                <span className="">Naslov clanka</span>
+              </label>
+              <input
+                id="caption"
+                className="caption-input"
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                placeholder="Caption"
+              />
+            </div>
+            <div className="slug-input-wrapper">
+              <label htmlFor="slug" className="slug-label">
+                <span className="">Slug clanka</span>
+              </label>
+              <input
+                id="slug"
+                className="slug-input"
+                value={postSlug}
+                onChange={(e) =>
+                  setPostSlug(e.target.value.replace(/\s+/g, "-").toLowerCase())
+                }
+                placeholder="Slug clanka"
+              />
+            </div>
+            <label>
+              <span>Kategorije clanka</span>
+            </label>
+            {isPostDataLoaded && (
+              <MultiSelectDropdown
+                loadOptions={promiseOptions}
+                onChange={(newValue) =>
+                  setCategories(newValue.map((item) => item.value))
+                }
+                defaultValue={postData?.categories.map(categoryToOption)}
+              />
+            )}
+            <label>
+              <span>Tagovi clanka</span>
+            </label>
+            {isPostDataLoaded && (
+              <CreatableSelect
+                className="tags-multi-select-dropdown"
+                isMulti
+                defaultValue={postData?.tags.map((tag) => ({
+                  value: tag,
+                  label: tag
+                }))}
+                onChange={(newValue) =>
+                  setTags(newValue.map((item) => item.value))
+                }
+              />
+            )}
             <div className="article-image-wrapper">
               <label htmlFor="postPicture" className="post-input-label">
                 {photo ? (
@@ -131,7 +225,19 @@ const EditPost = () => {
                 Obrisite sliku
               </button>
             </div>
-            <div className="article-content">Article Content</div>
+            <div className="article-body">
+              <div>
+                {isPostDataLoaded && (
+                  <Editor
+                    content={postData?.body}
+                    editable={true}
+                    onDataChange={(data) => {
+                      setBody(data);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
             <div className="article-tags">Article Tags</div>
             <div className="article-categories">Article Categories</div>
             <div className="article-actions">
@@ -146,7 +252,6 @@ const EditPost = () => {
             </div>
           </div>
         </article>
-        {console.log(photo, initialPhoto, postData)}
       </section>
     </div>
   );

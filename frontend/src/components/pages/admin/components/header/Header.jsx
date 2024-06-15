@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillDashboard, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { MdArticle, MdElectricBike } from "react-icons/md";
 import { FaComments } from "react-icons/fa";
@@ -9,44 +9,37 @@ import images from "../../../../../constants/images";
 import "./header.css";
 import NavItem from "./nav-item/nav-item/NavItem";
 import NavItemCollapse from "./nav-item/nav-item-collapse/NavItemCollapse";
-
-const menuItems = [
-  {
-    title: "Dashboard",
-    link: "/dashboard",
-    icon: <AiFillDashboard />,
-    name: "dashboard",
-    type: "link"
-  },
-  {
-    title: "Komentari",
-    link: "/dashboard/comments",
-    icon: <FaComments />,
-    name: "comments",
-    type: "link"
-  },
-  {
-    title: "Članci",
-    content: [
-      {
-        title: "Dodaj članak",
-        link: "/dashboard/articles/new"
-      },
-      {
-        title: "Svi članci",
-        link: "/dashboard/articles/manage"
-      }
-    ],
-    icon: <MdArticle />,
-    name: "articles",
-    type: "collapse"
-  }
-];
+import { useMutation, useQueryClient } from "react-query";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { createPost } from "../../../../../services/index/posts";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const userState = useSelector((state) => state.user);
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [activeNavName, setActiveNavName] = useState("dashboard");
   const windowSize = useWindowSize();
+
+  const { mutate: mutateCreatePost, isLoading: isLoadingCreatePost } =
+    useMutation(
+      ({ token, slug }) =>
+        createPost({
+          token
+        }),
+      {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries(["posts"]);
+          toast.success("Clanak je kreiran!");
+          navigate(`/dashboard/articles/manage/edit/${data.slug}`);
+        },
+        onError: (error) => {
+          toast.error(error.message);
+          console.log(error);
+        }
+      }
+    );
 
   const toggleMenuHandler = () => {
     setIsMenuActive(!isMenuActive);
@@ -58,6 +51,10 @@ const Header = () => {
     }
   }, [windowSize.width]);
 
+  const handleCreateNewPost = ({ token }) => {
+    mutateCreatePost({ token });
+  };
+
   return (
     <>
       <header className="header-wrapper">
@@ -67,32 +64,50 @@ const Header = () => {
           </Link>
         </div>
         {windowSize.width > 1024 && (
-            <div className="menu">
-              {menuItems.map((item) =>
-                item.type === "link" ? (
-                  <NavItem
-                    key={item.title}
-                    title={item.title}
-                    link={item.link}
-                    icon={item.icon}
-                    name={item.name}
-                    activeNavName={activeNavName}
-                    setActiveNavName={setActiveNavName}
-                  />
-                ) : (
-                  <NavItemCollapse
-                    key={item.title}
-                    title={item.title}
-                    content={item.content}
-                    icon={item.icon}
-                    name={item.name}
-                    activeNavName={activeNavName}
-                    setActiveNavName={setActiveNavName}
-                  />
-                )
-              )}
-            </div>
-          )}
+          <div className="menu">
+            <NavItem
+              title="Dashboard"
+              link="/dashboard"
+              icon={<AiFillDashboard />}
+              name="dashboard"
+              activeNavName={activeNavName}
+              setActiveNavName={setActiveNavName}
+            />
+            <NavItem
+              title="Komentari"
+              link="/dashboard/comments"
+              icon={<FaComments />}
+              name="comments"
+              activeNavName={activeNavName}
+              setActiveNavName={setActiveNavName}
+            />
+            <NavItemCollapse
+              title="Clanci"
+              icon={<MdArticle />}
+              name="articles"
+              activeNavName={activeNavName}
+              setActiveNavName={setActiveNavName}
+            >
+              <Link
+                to="/dashboard/articles/manage"
+                className="dropdown-nav-item"
+              >
+                Upravljaj clancima
+              </Link>
+              <button
+                disabled={isLoadingCreatePost}
+                onClick={() =>
+                  handleCreateNewPost({
+                    token: userState.userInfo.token
+                  })
+                }
+                className="dropdown-nav-item"
+              >
+                Dodaj novi clanak
+              </button>
+            </NavItemCollapse>
+          </div>
+        )}
         <div className="menu-icon-wrapper">
           {isMenuActive ? (
             <AiOutlineClose className="menu-icon" onClick={toggleMenuHandler} />
@@ -114,29 +129,47 @@ const Header = () => {
                 <h4 className="menu-title">Meni</h4>
                 {/* menu items */}
                 <div className="menu">
-                  {menuItems.map((item) =>
-                    item.type === "link" ? (
-                      <NavItem
-                        key={item.title}
-                        title={item.title}
-                        link={item.link}
-                        icon={item.icon}
-                        name={item.name}
-                        activeNavName={activeNavName}
-                        setActiveNavName={setActiveNavName}
-                      />
-                    ) : (
-                      <NavItemCollapse
-                        key={item.title}
-                        title={item.title}
-                        content={item.content}
-                        icon={item.icon}
-                        name={item.name}
-                        activeNavName={activeNavName}
-                        setActiveNavName={setActiveNavName}
-                      />
-                    )
-                  )}
+                  <NavItem
+                    title="Dashboard"
+                    link="/dashboard"
+                    icon={<AiFillDashboard />}
+                    name="dashboard"
+                    activeNavName={activeNavName}
+                    setActiveNavName={setActiveNavName}
+                  />
+                  <NavItem
+                    title="Komentari"
+                    link="/dashboard/comments"
+                    icon={<FaComments />}
+                    name="comments"
+                    activeNavName={activeNavName}
+                    setActiveNavName={setActiveNavName}
+                  />
+                  <NavItemCollapse
+                    title="Clanci"
+                    icon={<MdArticle />}
+                    name="articles"
+                    activeNavName={activeNavName}
+                    setActiveNavName={setActiveNavName}
+                  >
+                    <Link
+                      to="/dashboard/articles/manage"
+                      className="dropdown-nav-item"
+                    >
+                      Upravljaj clancima
+                    </Link>
+                    <button
+                      disabled={isLoadingCreatePost}
+                      onClick={() =>
+                        handleCreateNewPost({
+                          token: userState.userInfo.token
+                        })
+                      }
+                      className="dropdown-nav-item"
+                    >
+                      Dodaj novi clanak
+                    </button>
+                  </NavItemCollapse>
                   <div onClick={toggleMenuHandler} className="dash-nav-item">
                     <AiOutlineClose /> Zatvori
                   </div>

@@ -10,7 +10,7 @@ const PostSchema = new Schema(
     photoDesc: { type: String },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     tags: { type: [String] },
-    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategories" },]
+    categories: [{ type: Schema.Types.ObjectId, ref: "PostCategories" }]
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
@@ -20,6 +20,12 @@ PostSchema.virtual("comments", {
   localField: "_id",
   foreignField: "post"
 });
+
+PostSchema.virtual("category", { 
+  ref: "PostCategories",
+  localField: "categories",
+  foreignField: "_id"
+})
 
 
 const Post = model("Post", PostSchema);

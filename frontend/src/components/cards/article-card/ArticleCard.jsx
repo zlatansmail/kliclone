@@ -8,36 +8,14 @@ import images from "../../../constants/images.js";
 
 export const ArticleCard = ({
   slug,
-  categories,
+  captionColor,
   title,
   caption,
   photo,
   createdAt,
   sharesNo,
-  comments = []
+  commentsNo
 }) => {
-  const getCategoryColor = (categories) => {
-    if (!categories) return "white";
-    switch (categories[0]) {
-      case "Vijesti":
-        return "rgba(211,61,61,1)";
-      case "Biznis":
-        return "rgba(239,111,62,1)";
-      case "Sport":
-        return "rgba(85,172,83,1)";
-      case "Magazin":
-        return "rgba(164,80,145,1)";
-      case "Lifestyle":
-        return "rgba(226,166,0,1)";
-      case "Scitech":
-        return "rgba(64,175,238,1)";
-      case "Auto":
-        return "rgba(72,123,175,1)";
-      default:
-        return "rgb(75,85,99)";
-    }
-  };
-
   let timeSincePost = timeSince(createdAt);
 
   return (
@@ -52,7 +30,7 @@ export const ArticleCard = ({
                     ? stables.UPLOAD_FOLDER_BASE_URL + photo
                     : images.samplePostImage
                 }
-                alt=""
+                alt={title + " image"}
                 className="article-image"
               />
             </div>
@@ -62,7 +40,7 @@ export const ArticleCard = ({
             <div
               className="caption"
               style={{
-                color: getCategoryColor(categories ? categories[0] : undefined)
+                color: captionColor
               }}
             >
               {caption}
@@ -81,7 +59,7 @@ export const ArticleCard = ({
               </div>
               <div className="article-comments">
                 <img src="/comments.svg" alt="comments" />
-                {comments.length}
+                {commentsNo || 0}
               </div>
             </div>
           </div>

@@ -10,7 +10,6 @@ import ProfilePage from "./components/users/profile/ProfilePage.jsx";
 import AdminDashboard from "./components/pages/admin/AdminDashboard.jsx";
 import Admin from "./components/pages/admin/screens/admin/Admin.jsx";
 import Comments from "./components/pages/admin/screens/comments/Comments.jsx";
-import AddPost from "./components/pages/admin/screens/addPost/AddPost.jsx";
 import ManagePosts from "./components/pages/admin/screens/managePosts/ManagePosts.jsx";
 import EditPost from "./components/pages/admin/screens/editPost/EditPost.jsx";
 
@@ -26,7 +25,6 @@ const App = () => {
         <Route path="/dashboard" element={<AdminDashboard />}>
           <Route index element={<Admin />} />
           <Route path="comments" element={<Comments />} />
-          <Route path="articles/new" element={<AddPost />} />
           <Route path="articles/manage" element={<ManagePosts />} />
           <Route path="articles/manage/edit/:slug" element={<EditPost />} />
         </Route>

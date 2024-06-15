@@ -103,6 +103,10 @@ const getPost = async (req, res, next) => {
         select: ["avatar", "name"]
       },
       {
+        path: "categories",
+        select: ["title"]
+      },
+      {
         path: "comments",
         match: {
           check: true,
@@ -178,6 +182,10 @@ const getAllPosts = async (req, res, next) => {
           select: ["avatar", "name"]
         },
         {
+          path: "categories",
+          select: ["title", "color"]
+        },
+        {
           path: "comments",
           match: {
             check: true,
@@ -203,7 +211,7 @@ const getAllPosts = async (req, res, next) => {
           ]
         }
       ])
-      .sort({ updatedAt: "desc" });
+      .sort({ createdAt: "desc" });
 
     return res.json(result);
   } catch {

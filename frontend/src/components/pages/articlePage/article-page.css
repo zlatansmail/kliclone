@@ -162,3 +162,18 @@
 .featured-news-article-wrapper {
     position: sticky;
 }
+
+.article-content .editor-wrapper {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.article-content .editor {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: white;
+}

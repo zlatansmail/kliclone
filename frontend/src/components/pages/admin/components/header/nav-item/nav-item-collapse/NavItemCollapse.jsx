@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const NavItemCollapse = ({
   title,
-  content,
+  children,
   icon,
   name,
   activeNavName,
@@ -29,16 +29,7 @@ const NavItemCollapse = ({
       </div>
       {isOpen && (
         <div className="dropdown-nav-items">
-          {content.map((item) => (
-            <NavLink
-              to={item.link}
-              className="dash-nav-item"
-              onClick={() => setActiveNavName(item.name)}
-            >
-              {item.icon}
-              {item.title}
-            </NavLink>
-          ))}
+            {children}
         </div>
       )}
     </div>

@@ -5,7 +5,6 @@ import "./suggested-news.css";
 import ArticleCard from "../article-card/ArticleCard.jsx";
 
 const SuggestedNews = ({ header, postsData = [], currentPostSlug }) => {
-  console.log(postsData);
   return (
     <div>
       <h2>{header}</h2>
@@ -13,16 +12,18 @@ const SuggestedNews = ({ header, postsData = [], currentPostSlug }) => {
         {postsData
           .filter((item) => item.slug !== currentPostSlug)
           .slice(0, 5)
-          .map((item) => {
+          .map((post) => {
             return (
               <ArticleCard
-                key={item._id}
-                title={item.title}
-                caption={item.caption}
-                createdAt={item.createdAt}
-                sharesNo={item.sharesNo}
-                comments={item.comments}
-                slug={item.slug}
+                key={post._id}
+                    title={post.title}
+                    captionColor={post.categories[0]?.color || "rgb(250, 0, 0)"}
+                    caption={post.caption}
+                    createdAt={post.createdAt}
+                    sharesNo={post.sharesNo}
+                    slug={post.slug}
+                    post={post}
+                    commentsNo={post.comments.length}
               />
             );
           })}

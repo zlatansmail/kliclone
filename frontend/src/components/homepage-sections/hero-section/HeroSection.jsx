@@ -19,7 +19,7 @@ const HeroSection = () => {
       console.log(err);
     }
   });
-
+  console.log(allPostsData?.data[0].categories[0].color)
   return (
     <section className="hero-section-container">
       <div className="hero-grid-container">
@@ -42,13 +42,13 @@ const HeroSection = () => {
                 <ArticleCard
                   key={post._id}
                   slug={post.slug}
-                  categories={post.categories}
+                  captionColor={post.categories[0]?.color || "rgb(250, 61, 62)"}
                   title={post.title}
                   caption={post.caption}
                   photo={post.photo}
                   createdAt={post.createdAt}
                   sharesNo={post.sharesNo}
-                  comments={post.comments}
+                  commentsNo={post.comments.length}
                 />
               </div>
             ))}
@@ -62,17 +62,18 @@ const HeroSection = () => {
           <div className="featured-news-article-wrapper">
             {!isLoading &&
               !isError &&
-              allPostsData.data.slice(0, 10).map((post) => (
+              allPostsData.data.slice(0, 10).map((post, index) => (
                 <div className="featured-news-article">
                   <ArticleCard
                     key={post._id}
                     title={post.title}
+                    captionColor={post.categories[0]?.color || "rgb(250, 61, 62)"}
                     caption={post.caption}
                     createdAt={post.createdAt}
                     sharesNo={post.sharesNo}
                     slug={post.slug}
                     post={post}
-                    comments={post.comments}
+                    commentsNo={post.comments.length}
                   />
                 </div>
               ))}

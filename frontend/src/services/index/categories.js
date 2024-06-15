@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getCategories = async () => {
+export const getAllCategories = async () => {
   try {
     const { data } = await axios.get("/api/categories");
     return data;
