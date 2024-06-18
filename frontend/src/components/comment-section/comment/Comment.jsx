@@ -36,7 +36,7 @@ const Comment = ({
   const replyOnUserId = comment.user._id;
 
   return (
-    <div className="comment-container">
+    <div className="comment-container" id={`comment-${comment?._id}`}>
       <div className="comment-user-details">
         <img
           src={

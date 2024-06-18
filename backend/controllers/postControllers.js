@@ -104,7 +104,7 @@ const getPost = async (req, res, next) => {
       },
       {
         path: "categories",
-        select: ["title"]
+        select: ["title", "color"]
       },
       {
         path: "comments",

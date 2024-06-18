@@ -16,7 +16,6 @@ import images from "../../../constants/images.js";
 import { getAllPosts, getSinglePost } from "../../../services/index/posts.js";
 import { timeSince } from "../../../utils/timeSince.js";
 import parseJsonToHtml from "../../../utils/parseJsonToHtml.js";
-import { all } from "axios";
 
 const ArticlePage = () => {
   const userState = useSelector((state) => state.user);
@@ -57,6 +56,10 @@ const ArticlePage = () => {
     return window.location.href;
   };
 
+  const captionColor = singleData?.categories[0].color;
+
+  console.log(captionColor);
+
   const currentUrl = getCurrentURL();
 
   let timeSincePost = timeSince(singleData?.createdAt);
@@ -66,7 +69,7 @@ const ArticlePage = () => {
         <div className="art-grid-container">
           <div className="art-grid-wrapper">
             <div className="art-grid-item art-title-wrapper">
-              <div className="art-caption">{singleData?.caption}</div>
+              <div className="art-caption" style={{color: captionColor}}>{singleData?.caption}</div>
               <h1 className="art-title">{singleData?.title}</h1>
             </div>
             <div className="art-grid-item art-details">

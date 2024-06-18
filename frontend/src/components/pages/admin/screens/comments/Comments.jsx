@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import { useDataTable } from "../../../../../hooks/useDataTable";
 import {
   deleteComment,
-  getAllComments
+  getAllComments,
+  updateComment
 } from "../../../../../services/index/comments";
 import DataTable from "../../components/data-table/DataTable";
 import { stables } from "../../../../../constants";
 import images from "../../../../../constants/images";
+import { useMutation } from "react-query";
+import toast from "react-hot-toast";
 
 const Comments = () => {
   const {
@@ -34,6 +37,26 @@ const Comments = () => {
       return deleteComment({ token, commentId: slug });
     }
   });
+
+  const {
+    mutate: mutateUpdateCommentCheck,
+    isLoading: isLoadingUpdateCommentCheck
+  } = useMutation({
+    mutationFn: ({ token, check, commentId }) => {
+      return updateComment({ token, check, commentId });
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries("comments");
+      toast.success(
+        data?.check ? "Komentar je odobren" : "Komentar je odbijen"
+      );
+    },
+    onError: (error) => {
+      toast.error("Greska prilikom odobravanja komentara");
+      console.log(error);
+    }
+  });
+
   return (
     <DataTable
       pageTitle={"Upravljanje komentarima"}
@@ -42,7 +65,14 @@ const Comments = () => {
       searchKeywordOnSubmitHandler={submitSearchKeywordHandler}
       searchKeyworOnChangedHandler={searchKeywordHandler}
       searchKeyword={searchKeyword}
-      tableHeaderTitleList={["Autor", "Komentar", "Kreiran", "Odgovora na", ""]}
+      tableHeaderTitleList={[
+        "Autor",
+        "Komentar",
+        "Kreiran",
+        "Na clanku",
+        "Kreiran",
+        "Akcije"
+      ]}
       isLoading={isLoading}
       isFetching={isFetching}
       isError={isError}
@@ -63,9 +93,20 @@ const Comments = () => {
               alt={comment?.user?.name}
               className="post-image"
             />
+
             <p>{comment?.user?.name}</p>
           </td>
           <td>
+            {comment?.replyOnUser !== null && (
+              <p>
+                Odgovor na
+                <Link
+                  to={`/clanak/${comment?.post?.slug}/#comment-${comment?._id}`}
+                >
+                  {comment?.replyOnUser?.name}
+                </Link>
+              </p>
+            )}
             {comment?.desc}
           </td>
           <td>
@@ -76,24 +117,44 @@ const Comments = () => {
             })}
           </td>
           <td className="tags-cell">
-            {comment?.replyOnUser?.name || "Nije odgovor"}
+            <Link to={`/clanak/${comment?.post?.slug}`}>
+              {comment?.post?.title}
+            </Link>
           </td>
           <td className="buttons-cell">
-            <Link
-              to={`/`}
-              className="edit-button"
-            >
-              Uredi
-            </Link>
+            <p>
+              {new Date(comment?.createdAt).toLocaleString("bs-BA", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric"
+              })}
+            </p>
+          </td>
+          <td>
             <button
-              disabled={isLoadingDeleteData}
-              onClick={() =>
-                deleteDataHandler({
-                  slug: comment.slug,
-                  token: userState.userInfo.token
-                })
-              }
-              className="delete-button"
+            disabled={isLoadingUpdateCommentCheck}
+            type="button"
+            className="update-comment-check-button"
+            onClick={() => {
+              mutateUpdateCommentCheck({
+                token: userState.userInfo.token,
+                check: !comment?.check,
+                commentId: comment?._id
+              });
+            }}
+            >
+              {comment?.check ? "Sakrij" : "Prikaži"}
+            </button>
+            <button
+            disabled={isLoadingDeleteData}
+            type="button"
+            className="update-comment-delete-button"
+            onClick={() => {
+              deleteDataHandler({
+                token: userState.userInfo.token,
+                slug: comment?._id
+              });
+            }}
             >
               Obrisi
             </button>

@@ -28,7 +28,8 @@ const NavItemCollapse = ({
         <MdOutlineArrowDropDown />
       </div>
       {isOpen && (
-        <div className="dropdown-nav-items">
+        <div className="dropdown-nav-items" 
+        onClick={toggleHandler}>
             {children}
         </div>
       )}

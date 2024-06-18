@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillDashboard, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { MdArticle, MdElectricBike } from "react-icons/md";
+import { MdArticle } from "react-icons/md";
 import { FaComments } from "react-icons/fa";
 import { useWindowSize } from "@uidotdev/usehooks";
 
@@ -94,6 +94,12 @@ const Header = () => {
               >
                 Upravljaj clancima
               </Link>
+              <Link
+                to="/dashboard/categories/manage"
+                className="dropdown-nav-item"
+              >
+                Kategorije
+              </Link>
               <button
                 disabled={isLoadingCreatePost}
                 onClick={() =>
@@ -157,6 +163,12 @@ const Header = () => {
                       className="dropdown-nav-item"
                     >
                       Upravljaj clancima
+                    </Link>
+                    <Link
+                      to="/dashboard/categories/manage"
+                      className="dropdown-nav-item"
+                    >
+                      Kategorije
                     </Link>
                     <button
                       disabled={isLoadingCreatePost}

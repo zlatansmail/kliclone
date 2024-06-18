@@ -12,6 +12,7 @@ import Admin from "./components/pages/admin/screens/admin/Admin.jsx";
 import Comments from "./components/pages/admin/screens/comments/Comments.jsx";
 import ManagePosts from "./components/pages/admin/screens/managePosts/ManagePosts.jsx";
 import EditPost from "./components/pages/admin/screens/editPost/EditPost.jsx";
+import Categories from "./components/pages/admin/screens/categories/Categories.jsx";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="comments" element={<Comments />} />
           <Route path="articles/manage" element={<ManagePosts />} />
           <Route path="articles/manage/edit/:slug" element={<EditPost />} />
+          <Route path="categories/manage" element={<Categories />} />
         </Route>
       </Routes>
       <Toaster />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -19,7 +19,7 @@ import MultiSelectDropdown from "../../../../common/select-dropdown/MultiSelectD
 import { getAllCategories } from "../../../../../services/index/categories.js";
 
 const promiseOptions = async (inputValue) => {
-  const categoriesData = await getAllCategories();
+  const {data: categoriesData} = await getAllCategories();
   return filterCategories(inputValue, categoriesData);
 };
 

@@ -4,7 +4,8 @@ import {
   createCategory,
   updateCategory,
   getAllCategories,
-  deleteCategory
+  deleteCategory,
+  getCategoryById
 } from "../controllers/categoryControllers.js";
 import { authGuard, adminGuard } from "../middleware/authMiddleware.js";
 
@@ -16,6 +17,7 @@ router
   .get(getAllCategories);
 router
   .route("/:categoryId")
+  .get(getCategoryById)
   .put(authGuard, adminGuard, updateCategory)
   .delete(authGuard, adminGuard, deleteCategory);
 

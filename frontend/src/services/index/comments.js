@@ -25,7 +25,7 @@ const createNewComment = async ({ token, desc, slug, parent, replyOnUser }) => {
   }
 };
 
-const updateComment = async ({ token, desc, commentId }) => {
+const updateComment = async ({ token, desc, check, commentId }) => {
   try {
     const config = {
       headers: {
@@ -35,7 +35,8 @@ const updateComment = async ({ token, desc, commentId }) => {
     const { data } = await axios.put(
       `/api/comments/${commentId}`,
       {
-        desc
+        desc,
+        check
       },
       config
     );
