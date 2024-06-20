@@ -1,4 +1,6 @@
 import { uploadPicture } from "../middleware/uploadPictureMiddleware.js";
+import Comment from "../models/Comment.js";
+import Post from "../models/Post.js";
 import User from "../models/User.js";
 import { fileRemover } from "../utils/fileRemover.js";
 
@@ -83,9 +85,23 @@ const userProfile = async (req, res, next) => {
 
 const updateProfile = async (req, res, next) => {
   try {
-    let user = await User.findById(req.user._id);
+    const userIdToUpdate = req.params.userId;
+
+    let userId = req.user._id;
+
+    if (!req.user.admin && userIdToUpdate !== userId) {
+      let error = new Error(
+        "Nemate autorizaciju da menjate podatke drugih korisnika"
+      );
+    }
+
+    let user = await User.findById(userIdToUpdate);
     if (!user) {
       throw new Error("Korisnik nije pronađen");
+    }
+
+    if(typeof req.body.admin !== "undefined" && !req.user.admin) {
+      user.admin = req.body.admin;
     }
 
     user.name = req.body.name || user.name;
@@ -116,9 +132,7 @@ const updateProfilePicture = async (req, res, next) => {
     const upload = uploadPicture.single("avatar");
     upload(req, res, async (err) => {
       if (err) {
-        const error = new Error(
-          "Greska pri slanju slike" + err.message
-        );
+        const error = new Error("Greska pri slanju slike" + err.message);
         next(error);
       } else {
         // No error, everything went fine
@@ -126,7 +140,7 @@ const updateProfilePicture = async (req, res, next) => {
           let filename;
           let updatedUser = await User.findById(req.user._id);
           filename = updatedUser.avatar;
-          if(filename) {
+          if (filename) {
             fileRemover(filename);
           }
           updatedUser.avatar = req.file.filename;
@@ -164,10 +178,85 @@ const updateProfilePicture = async (req, res, next) => {
   }
 };
 
+const getAllUsers = async (req, res, next) => {
+  try {
+    const filter = req.query.searchKeyword;
+    let where = {};
+    if (filter) {
+      where.email = {
+        $regex: filter,
+        $options: "i"
+      };
+    }
+    let query = User.find(where);
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.limit) || 15;
+    const skip = (page - 1) * pageSize;
+    const total = await User.find(where).countDocuments();
+    const pages = Math.ceil(total / pageSize);
+
+    res.header({
+      "x-filter": filter,
+      "x-totalcount": JSON.stringify(total),
+      "x-currentpage": JSON.stringify(page),
+      "x-pagesize": JSON.stringify(pageSize),
+      "x-totalpagecount": JSON.stringify(pages)
+    });
+
+    if (page > pages) {
+      return res.json([]);
+    }
+
+    const result = await query
+      .skip(skip)
+      .limit(pageSize)
+      .sort({ createdAt: "desc" });
+
+    return res.json(result);
+  } catch {
+    let error = new Error("Posts not found");
+    return next(error);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    let user = await User.findById(req.params.userId);
+
+    if (!user) {
+      let error = new Error("Korisnik nije pronađen");
+      return next(error);
+    }
+
+    const postsToDelete = await Post.find({ user: user._id });
+    const postIdsToDelete = postsToDelete.map((post) => post._id);
+
+    await Comment.deleteMany({ post: { $in: postIdsToDelete } });
+
+    await Post.deleteMany({ _id: { $in: postIdsToDelete } });
+
+    postsToDelete.forEach((post) => {
+      fileRemover(post.photo);
+    });
+
+    await User.deleteOne({ _id: user._id });
+
+    fileRemover(user.avatar);
+
+    res.status(204).json({
+      message: "Korisnik, njegovi postovi i njegovi komentari su obrisani"
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   registerUser,
   loginUser,
   userProfile,
   updateProfile,
-  updateProfilePicture
+  updateProfilePicture,
+  getAllUsers,
+  deleteUser
 };

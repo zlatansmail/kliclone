@@ -13,6 +13,7 @@ import Comments from "./components/pages/admin/screens/comments/Comments.jsx";
 import ManagePosts from "./components/pages/admin/screens/managePosts/ManagePosts.jsx";
 import EditPost from "./components/pages/admin/screens/editPost/EditPost.jsx";
 import Categories from "./components/pages/admin/screens/categories/Categories.jsx";
+import Users from "./components/pages/admin/screens/users/Users.jsx";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="articles/manage" element={<ManagePosts />} />
           <Route path="articles/manage/edit/:slug" element={<EditPost />} />
           <Route path="categories/manage" element={<Categories />} />
+          <Route path="users" element={<Users />} />
         </Route>
       </Routes>
       <Toaster />

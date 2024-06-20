@@ -5,7 +5,12 @@ import toast from "react-hot-toast";
 
 let isFirstRun = true;
 
-export const useDataTable = ({ dataQueryFn, dataQueryKey, mutateDeleteFn, deleteDataMessage }) => {
+export const useDataTable = ({
+  dataQueryFn,
+  dataQueryKey,
+  mutateDeleteFn,
+  deleteDataMessage
+}) => {
   const userState = useSelector((state) => state.user);
 
   const queryClient = useQueryClient();
@@ -14,13 +19,7 @@ export const useDataTable = ({ dataQueryFn, dataQueryKey, mutateDeleteFn, delete
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const {
-    data,
-    isLoading,
-    isFetching,
-    isError,
-    refetch
-  } = useQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryFn: dataQueryFn,
     queryKey: dataQueryKey,
     refetchOnWindowFocus: false,
@@ -63,7 +62,11 @@ export const useDataTable = ({ dataQueryFn, dataQueryKey, mutateDeleteFn, delete
   };
 
   const deleteDataHandler = ({ slug, token }) => {
-    mutateDeletePost({ token, slug });
+    if (
+      window.confirm("Da li ste sigurni da zelite da obrisete ove podatke?")
+    ) {
+      mutateDeletePost({ token, slug });
+    }
   };
 
   return {

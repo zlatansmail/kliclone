@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillDashboard, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { MdArticle } from "react-icons/md";
-import { FaComments } from "react-icons/fa";
+import { FaComments, FaUser } from "react-icons/fa";
 import { useWindowSize } from "@uidotdev/usehooks";
 
 import images from "../../../../../constants/images";
@@ -81,6 +81,14 @@ const Header = () => {
               activeNavName={activeNavName}
               setActiveNavName={setActiveNavName}
             />
+            <NavItem
+              title="Korisnici"
+              link="/dashboard/users"
+              icon={<FaUser />}
+              name="users"
+              activeNavName={activeNavName}
+              setActiveNavName={setActiveNavName}
+            />
             <NavItemCollapse
               title="Clanci"
               icon={<MdArticle />}
@@ -148,6 +156,14 @@ const Header = () => {
                     link="/dashboard/comments"
                     icon={<FaComments />}
                     name="comments"
+                    activeNavName={activeNavName}
+                    setActiveNavName={setActiveNavName}
+                  />
+                  <NavItem
+                    title="Korisnici"
+                    link="/dashboard/users"
+                    icon={<FaUser />}
+                    name="users"
                     activeNavName={activeNavName}
                     setActiveNavName={setActiveNavName}
                   />

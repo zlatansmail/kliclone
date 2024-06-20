@@ -22,7 +22,8 @@ const ProfilePage = () => {
     ({ name, email, password }) =>
       updateProfile({
         token: userState.userInfo.token,
-        userData: { name, email, password }
+        userData: { name, email, password },
+        userId: userState.userInfo._id
       }),
     {
       onSuccess: (data) => {

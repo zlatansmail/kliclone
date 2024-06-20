@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getAllPosts = async (searchKeyword = "", page = 1, limit = 10) => {
+const getAllPosts = async (searchKeyword = "", page = 1, limit = 100) => {
   try {
     const { data, headers } = await axios.get(
       `/api/posts?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`
@@ -12,6 +12,16 @@ const getAllPosts = async (searchKeyword = "", page = 1, limit = 10) => {
     throw new Error(error.message);
   }
 };
+
+const getPostsByCategory = async (categoryTitle, page = 1, limit = 10) => {
+  const response = await fetch(`/api/posts?categoryTitle=${encodeURIComponent(categoryTitle)}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch posts');
+  }
+  const data = await response.json();
+  return data;
+};
+
 
 const getSinglePost = async ({ slug }) => {
   try {
@@ -76,4 +86,4 @@ const createPost = async ({ token }) => {
   }
 };
 
-export { getAllPosts, getSinglePost, deletePost, updatePost, createPost };
+export { getAllPosts, getSinglePost, deletePost, updatePost, createPost, getPostsByCategory };

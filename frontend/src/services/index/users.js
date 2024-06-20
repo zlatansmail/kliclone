@@ -48,7 +48,7 @@ const getUserProfile = async ({ token }) => {
   }
 };
 
-const updateProfile = async ({ token, userData }) => {
+const updateProfile = async ({ token, userData, userId }) => {
   try {
     const config = {
       headers: {
@@ -56,7 +56,7 @@ const updateProfile = async ({ token, userData }) => {
       }
     };
     const { data } = await axios.put(
-      "/api/users/updateProfile",
+      `/api/users/updateProfile/${userId}`,
       userData,
       config
     );
@@ -70,13 +70,14 @@ const updateProfile = async ({ token, userData }) => {
 };
 
 const updateProfilePicture = async ({ token, formData }) => {
-  const config = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`
-    }
-  };
   try {
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`
+      }
+    };
+
     const { data } = await axios.put(
       "/api/users/updateProfilePicture",
       formData,
@@ -91,4 +92,48 @@ const updateProfilePicture = async ({ token, formData }) => {
   }
 };
 
-export { signUp, logIn, getUserProfile, updateProfile, updateProfilePicture };
+const getAllUsers = async (token, searchKeyword = "", page = 1, limit = 10) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+    const { data, headers } = await axios.get(
+      `/api/users?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`,
+      config
+    );
+    return { data, headers };
+  } catch (error) {
+    if (error.response && error.response.data.message)
+      throw new Error(error.response.data.message);
+    throw new Error(error.message);
+  }
+};
+
+const deleteUser = async ({ token, slug }) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+    const { data } = await axios.delete(`/api/users/${slug}`, config);
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error(error.message);
+  }
+};
+
+export {
+  signUp,
+  logIn,
+  getUserProfile,
+  updateProfile,
+  updateProfilePicture,
+  getAllUsers,
+  deleteUser
+};
