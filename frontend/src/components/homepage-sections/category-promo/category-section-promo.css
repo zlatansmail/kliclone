@@ -17,14 +17,14 @@
   background-color: rgb(55 65 81);
 }
 
-.promo-grid-item {
+.promo-cat-grid-item {
   text-align: left;
   max-width: 100%;
   padding: 0.5rem;
   background-color: var(--fore-bg-color);
 }
 
-.promo-grid-item:nth-child(1) {
+.promo-cat-grid-item:nth-child(1) {
   grid-column: span 4;
   text-align: left;
   vertical-align: middle;
@@ -32,6 +32,6 @@
   max-width: 100%;
 }
 
-.promo-grid-item:nth-child(1n+6) .article-image-wrapper img {
+.promo-cat-grid-item:nth-child(1n+6) .article-image-wrapper img {
   display: none;
 }

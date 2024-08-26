@@ -83,9 +83,6 @@ const Categories = () => {
 
   return (
     <div className="manage-posts-wrapper">
-      <div>
-        <button onClick={openModal}>Dodaj kategoriju</button>
-      </div>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
@@ -146,6 +143,7 @@ const Categories = () => {
             </button>
           </div>
         </Modal>
+        <button className="add-category-button" onClick={openModal}>Dodaj kategoriju</button>
       <DataTable
         pageTitle={"Upravljanje kategorijama"}
         dataListName={"categories"}

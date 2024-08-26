@@ -37,3 +37,15 @@
     margin-bottom: 1rem;
     color: var(--text-color);
 }
+
+.add-category-button {
+    background-color: rgb(84,172,83);
+    color: white;
+    margin: 2rem auto;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 20%;
+    border: none;
+}

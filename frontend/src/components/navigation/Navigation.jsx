@@ -29,63 +29,67 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
   };
 
   return (
-    <header className="navigation-wrapper">
-      <div className="nav-items-wrapper">
-        <div className="logo-wrapper">
-          <Link to="/">
-            <img className="nav-logo" src="/logo.svg" alt="klix logotip" />
-          </Link>
-        </div>
-        {navItems.map((item) => (
-          <NavItem
-            key={item.id}
-            content={item.content}
-            link={`/${item.content.toLowerCase()}`}
-            boxColor={item.boxColor}
-            fontColor={item.fontColor}
-          />
-        ))}
-      </div>
-      <div className="right-menu-wrapper">
-        <div className="search-icon-wrapper">
-          <CiSearch className="search-icon" />
-        </div>
-        <div
-          className="profile-icon-wrapper"
-          onClick={() => setProfileDropdown(!profileDropdown)}
-        >
-          <CgProfile className="profile-icon" />
-          <div
-            className={`${
-              profileDropdown ? "profile-dropdown" : "profile-dropdown-closed"
-            }`}
-          >
-            <ul>
-              {userState.userInfo ? (
-                <>
-                  {userState?.userInfo?.admin && (
-                    <li onClick={() => navigate("/dashboard")}>
-                      Admin Dashboard
-                    </li>
-                  )}
-                  <li onClick={logoutHandler}>Odjavite se</li>
-                  <li onClick={() => navigate("/profile")}>Moj Profil</li>
-                </>
-              ) : (
-                <>
-                  <li onClick={() => navigate("/login")}>Prijavite se</li>
-                  <li onClick={() => navigate("/register")}>Registrujte se</li>
-                </>
-              )}
-            </ul>
+    <header className="navigation-container">
+      <div className="navigation-wrapper">
+        <div className="nav-items-wrapper">
+          <div className="logo-wrapper">
+            <Link to="/">
+              <img className="nav-logo" src="/logo.svg" alt="klix logotip" />
+            </Link>
           </div>
+          {navItems.map((item) => (
+            <NavItem
+              key={item.id}
+              content={item.content}
+              link={`/${item.content.toLowerCase()}`}
+              boxColor={item.boxColor}
+              fontColor={item.fontColor}
+            />
+          ))}
         </div>
-        <div className="ham-menu-icon-wrapper" onClick={handleClick}>
-          {isDropDownOpen ? (
-            <IoClose className="ham-menu-icon" />
-          ) : (
-            <RxHamburgerMenu className="ham-menu-icon" />
-          )}
+        <div className="right-menu-wrapper">
+          <div className="search-icon-wrapper">
+            <CiSearch className="search-icon" />
+          </div>
+          <div
+            className="profile-icon-wrapper"
+            onClick={() => setProfileDropdown(!profileDropdown)}
+          >
+            <CgProfile className="profile-icon" />
+            <div
+              className={`${
+                profileDropdown ? "profile-dropdown" : "profile-dropdown-closed"
+              }`}
+            >
+              <ul>
+                {userState.userInfo ? (
+                  <>
+                    {userState?.userInfo?.admin && (
+                      <li onClick={() => navigate("/dashboard")}>
+                        Admin Dashboard
+                      </li>
+                    )}
+                    <li onClick={logoutHandler}>Odjavite se</li>
+                    <li onClick={() => navigate("/profile")}>Moj Profil</li>
+                  </>
+                ) : (
+                  <>
+                    <li onClick={() => navigate("/login")}>Prijavite se</li>
+                    <li onClick={() => navigate("/register")}>
+                      Registrujte se
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
+          </div>
+          <div className="ham-menu-icon-wrapper" onClick={handleClick}>
+            {isDropDownOpen ? (
+              <IoClose className="ham-menu-icon" />
+            ) : (
+              <RxHamburgerMenu className="ham-menu-icon" />
+            )}
+          </div>
         </div>
       </div>
     </header>

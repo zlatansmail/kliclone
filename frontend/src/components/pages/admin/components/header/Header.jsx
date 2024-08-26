@@ -31,7 +31,7 @@ const Header = () => {
       {
         onSuccess: (data) => {
           queryClient.invalidateQueries(["posts"]);
-          toast.success("Clanak je kreiran!");
+          toast.success("Članak je kreiran!");
           navigate(`/dashboard/articles/manage/edit/${data.slug}`);
         },
         onError: (error) => {
@@ -66,14 +66,6 @@ const Header = () => {
         {windowSize.width > 1024 && (
           <div className="menu">
             <NavItem
-              title="Dashboard"
-              link="/dashboard"
-              icon={<AiFillDashboard />}
-              name="dashboard"
-              activeNavName={activeNavName}
-              setActiveNavName={setActiveNavName}
-            />
-            <NavItem
               title="Komentari"
               link="/dashboard/comments"
               icon={<FaComments />}
@@ -90,7 +82,7 @@ const Header = () => {
               setActiveNavName={setActiveNavName}
             />
             <NavItemCollapse
-              title="Clanci"
+              title="Članci"
               icon={<MdArticle />}
               name="articles"
               activeNavName={activeNavName}
@@ -100,7 +92,7 @@ const Header = () => {
                 to="/dashboard/articles/manage"
                 className="dropdown-nav-item"
               >
-                Upravljaj clancima
+                Upravljaj člancima
               </Link>
               <Link
                 to="/dashboard/categories/manage"
@@ -117,7 +109,7 @@ const Header = () => {
                 }
                 className="dropdown-nav-item"
               >
-                Dodaj novi clanak
+                Dodaj članak
               </button>
             </NavItemCollapse>
           </div>
@@ -143,14 +135,6 @@ const Header = () => {
                 <h4 className="menu-title">Meni</h4>
                 {/* menu items */}
                 <div className="menu">
-                  <NavItem
-                    title="Dashboard"
-                    link="/dashboard"
-                    icon={<AiFillDashboard />}
-                    name="dashboard"
-                    activeNavName={activeNavName}
-                    setActiveNavName={setActiveNavName}
-                  />
                   <NavItem
                     title="Komentari"
                     link="/dashboard/comments"

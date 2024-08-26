@@ -26,6 +26,9 @@ const AdminDashboard = () => {
         navigate("/");
         toast.error("Nemate pristup ovoj stranici");
       }
+      if (data?.admin) {
+        navigate("/dashboard/articles/manage");
+      }
     },
     onError: (error) => {
       console.log(error);

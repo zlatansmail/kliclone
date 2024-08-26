@@ -5,11 +5,10 @@
 .dropdown-menu {
   margin-left: auto;
   margin-right: auto;
-  position: absolute;
+  position: sticky;
   align-items: center;
   justify-content: center;
   padding: 0;
-  margin: 0;
   display: flex;
   background-color: var(--fore-bg-color);
   color: white;
@@ -24,8 +23,6 @@
 }
 
 .dropdown-grid {
-  margin-left: auto;
-  margin-right: auto;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

@@ -16,7 +16,7 @@ header {
 
 }
 
-.navigation-wrapper {
+.navigation-container {
   position: sticky;
   display: flex;
   flex-direction: row;
@@ -27,6 +27,13 @@ header {
   align-items: center;
   width: 100%;
   margin-bottom: 4px;
+}
+
+.navigation-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 80rem;
 }
 
 .navigation {
@@ -120,16 +127,13 @@ header {
 }
 
 .profile-dropdown {
-  position: absolute;
+  position: sticky;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 3.5rem;
-  right: 1.25rem;
-  width: auto;
+  min-width: 190px;
   background-color: var(--fore-bg-color);
-  border-color: bisque;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }

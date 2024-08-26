@@ -17,9 +17,10 @@ import {
 import Editor from "../../../../editor/Editor";
 import MultiSelectDropdown from "../../../../common/select-dropdown/MultiSelectDropdown";
 import { getAllCategories } from "../../../../../services/index/categories.js";
+import slugify from "slugify";
 
 const promiseOptions = async (inputValue) => {
-  const {data: categoriesData} = await getAllCategories();
+  const { data: categoriesData } = await getAllCategories();
   return filterCategories(inputValue, categoriesData);
 };
 
@@ -52,7 +53,7 @@ const EditPost = () => {
       setTitle(data.title);
       setTags(data.tags);
     },
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: false
   });
 
   const {
@@ -121,51 +122,40 @@ const EditPost = () => {
   let isPostDataLoaded = !isPostLoading && !isPostError;
 
   return (
-    <div>
-      <section>
-        <article>
-          <h1>Edit Post</h1>
-          <div className="edit-article-container">
-            <div className="title-input-wrapper">
-              <label htmlFor="title" className="title-label">
-                <span className="">Naslov clanka</span>
-              </label>
-              <input
-                id="title"
-                className="title-input"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Title"
-              />
-            </div>
-            <div className="caption-input-wrapper">
-              <label htmlFor="caption" className="caption-label">
-                <span className="">Naslov clanka</span>
-              </label>
-              <input
-                id="caption"
-                className="caption-input"
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
-                placeholder="Caption"
-              />
-            </div>
-            <div className="slug-input-wrapper">
-              <label htmlFor="slug" className="slug-label">
-                <span className="">Slug clanka</span>
-              </label>
-              <input
-                id="slug"
-                className="slug-input"
-                value={postSlug}
-                onChange={(e) =>
-                  setPostSlug(e.target.value.replace(/\s+/g, "-").toLowerCase())
-                }
-                placeholder="Slug clanka"
-              />
-            </div>
+    <>
+      <h1>Uredi članak</h1>
+      <article className="edit-post-page-container">
+        <section className="section-left">
+          <div className="title-input-wrapper">
+            <label htmlFor="title" className="title-label">
+              <span className="">Naslov članka</span>
+            </label>
+            <input
+              id="title"
+              className="title-input"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setPostSlug(slugify(e.target.value, { lower: true }));
+              }}
+              placeholder="Title"
+            />
+          </div>
+          <div className="caption-input-wrapper">
+            <label htmlFor="caption" className="caption-label">
+              <span className="">Podnaslov članka</span>
+            </label>
+            <input
+              id="caption"
+              className="caption-input"
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              placeholder="Caption"
+            />
+          </div>
+          <div className="category-input-wrapper">
             <label>
-              <span>Kategorije clanka</span>
+              <span>Kategorije članka</span>
             </label>
             {isPostDataLoaded && (
               <MultiSelectDropdown
@@ -176,84 +166,95 @@ const EditPost = () => {
                 defaultValue={postData?.categories.map(categoryToOption)}
               />
             )}
-            <label>
-              <span>Tagovi clanka</span>
-            </label>
-            {isPostDataLoaded && (
-              <CreatableSelect
-                className="tags-multi-select-dropdown"
-                isMulti
-                defaultValue={postData?.tags.map((tag) => ({
-                  value: tag,
-                  label: tag
-                }))}
-                onChange={(newValue) =>
-                  setTags(newValue.map((item) => item.value))
-                }
-              />
-            )}
-            <div className="article-image-wrapper">
-              <label htmlFor="postPicture" className="post-input-label">
-                {photo ? (
-                  <img
-                    src={URL.createObjectURL(photo)}
-                    className="article-image"
-                    alt={postData?.title}
-                  />
-                ) : initialPhoto ? (
-                  <img
-                    src={stables.UPLOAD_FOLDER_BASE_URL + postData?.photo}
-                    alt={postData?.title}
-                    className="article-image"
-                  />
-                ) : (
-                  <div className="no-image-icon-wrapper">
-                    <HiOutlineCamera className="no-image-icon" />
-                  </div>
-                )}
-              </label>
-              <input
-                type="file"
-                className="photo-input"
-                id="postPicture"
-                onChange={handleFileChange}
-              />
-              <button
-                className="delete-image-button"
-                onClick={handleDeleteImage}
-              >
-                Obrisite sliku
-              </button>
-            </div>
-            <div className="article-body">
-              <div>
-                {isPostDataLoaded && (
-                  <Editor
-                    content={postData?.body}
-                    editable={true}
-                    onDataChange={(data) => {
-                      setBody(data);
-                    }}
-                  />
-                )}
-              </div>
-            </div>
-            <div className="article-tags">Article Tags</div>
-            <div className="article-categories">Article Categories</div>
-            <div className="article-actions">
-              <button
-                disabled={isLoadingUpdatePostDetails}
-                className="edit-article-button"
-                onClick={handleUpdatePost}
-              >
-                Sacuvaj
-              </button>
-              <button className="delete-article-button">OBRISI</button>
+          </div>
+          <div className="article-body">
+            <div>
+              {isPostDataLoaded && (
+                <Editor
+                  content={postData?.body}
+                  editable={true}
+                  onDataChange={(data) => {
+                    setBody(data);
+                  }}
+                />
+              )}
             </div>
           </div>
-        </article>
-      </section>
-    </div>
+          <div className="article-actions">
+            <button
+              disabled={isLoadingUpdatePostDetails}
+              className="edit-article-button"
+              onClick={handleUpdatePost}
+            >
+              Sacuvaj
+            </button>
+            <button className="delete-article-button">OBRISI</button>
+          </div>
+        </section>
+        <section className="section-right">
+          <div className="article-image-wrapper">
+            <label htmlFor="postPicture" className="post-input-label">
+              {photo ? (
+                <img
+                  src={URL.createObjectURL(photo)}
+                  className="article-image"
+                  alt={postData?.title}
+                />
+              ) : initialPhoto ? (
+                <img
+                  src={stables.UPLOAD_FOLDER_BASE_URL + postData?.photo}
+                  alt={postData?.title}
+                  className="article-image"
+                />
+              ) : (
+                <div className="no-image-icon-wrapper">
+                  <HiOutlineCamera className="no-image-icon" />
+                </div>
+              )}
+            </label>
+            <input
+              type="file"
+              className="photo-input"
+              id="postPicture"
+              onChange={handleFileChange}
+            />
+            <button className="delete-image-button" onClick={handleDeleteImage}>
+              Obrišite sliku
+            </button>
+          </div>
+          <div className="slug-input-wrapper">
+            <label htmlFor="slug" className="slug-label">
+              <span className="">Slug članka</span>
+            </label>
+            <input
+              id="slug"
+              className="slug-input"
+              value={postSlug}
+              onChange={(e) =>
+                setPostSlug(e.target.value.replace(/\s+/g, "-").toLowerCase())
+              }
+              placeholder="Slug clanka"
+            />
+          </div>
+          <label>
+            <span>Tagovi članka</span>
+          </label>
+          {isPostDataLoaded && (
+            <CreatableSelect
+              className="tags-multi-select-dropdown"
+              isMulti
+              defaultValue={postData?.tags.map((tag) => ({
+                value: tag,
+                label: tag
+              }))}
+              onChange={(newValue) =>
+                setTags(newValue.map((item) => item.value))
+              }
+            />
+          )}
+        </section>
+      </article>
+    </>
   );
 };
 

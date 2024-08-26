@@ -1,0 +1,130 @@
+.edit-post-page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    min-width: 80rem;
+
+}
+
+.section-left {
+    min-width: 60rem;
+    padding: 1rem 2rem;
+    background-color: var(--fore-bg-color);
+    border-radius: 1rem;
+}
+
+.section-right {
+    width: 20rem;
+    padding: 0 20px;
+}
+
+.title-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.caption-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.category-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.multi-select-dropdown {
+    color: black
+}
+
+.article-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-around;
+}
+
+.article-actions .edit-article-button {
+    background-color: rgb(84, 172, 83);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 20%;
+    border: none;
+}
+
+.article-actions .edit-article-button:hover {
+    background-color: rgb(84, 172, 83);
+}
+
+.article-actions .delete-article-button {
+    background-color: rgb(211, 61, 62);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 20%;
+    border: none;
+}
+
+.section-right .article-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.section-right .article-image-wrapper input {
+    display: none;
+}
+
+.section-right .article-image-wrapper .article-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.section-right .article-image-wrapper .post-input-label {
+    background: #aaa7a7;
+    display: flex;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-right .delete-image-button {
+    background-color: rgb(211, 61, 62);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    border: none;
+}
+
+.slug-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tags-multi-select-dropdown {
+    color: black;
+}
