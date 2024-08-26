@@ -34,8 +34,6 @@ const Homepage = () => {
     }
   });
 
-  console.log(allPostsData?.data[0].categories[0]?.color);
-
   const filterPostsByCategory = (categoryTitle) => {
     return allPostsData?.data?.filter((post) =>
       post.categories.some((category) => category.title === categoryTitle)

@@ -8,7 +8,7 @@ const createNewComment = async ({ token, desc, slug, parent, replyOnUser }) => {
       }
     };
     const { data } = await axios.post(
-      `/api/comments`,
+      `${process.env.REACT_APP_API_URL}/api/comments`,
       {
         desc,
         slug,
@@ -33,7 +33,7 @@ const updateComment = async ({ token, desc, check, commentId }) => {
       }
     };
     const { data } = await axios.put(
-      `/api/comments/${commentId}`,
+      `${process.env.REACT_APP_API_URL}/api/comments/${commentId}`,
       {
         desc,
         check
@@ -55,7 +55,7 @@ const deleteComment = async ({ token, commentId }) => {
         Authorization: `Bearer ${token}`
       }
     };
-    const { data } = await axios.delete(`/api/comments/${commentId}`, config);
+    const { data } = await axios.delete(`${process.env.REACT_APP_API_URL}/api/comments/${commentId}`, config);
     return data;
   } catch (error) {
     if (error.response && error.response.data.message)
@@ -77,7 +77,7 @@ const getAllComments = async (
       }
     };
     const { data, headers } = await axios.get(
-      `/api/comments?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`,
+      `${process.env.REACT_APP_API_URL}/api/comments?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`,
       config
     );
     return { data, headers };

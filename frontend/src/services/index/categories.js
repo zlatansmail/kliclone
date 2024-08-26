@@ -7,7 +7,7 @@ export const getAllCategories = async (
 ) => {
   try {
     const { data, headers } = await axios.get(
-      `/api/categories?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`
+      `${process.env.REACT_APP_API_URL}/api/categories?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`
     );
     return { data, headers };
   } catch (error) {
@@ -26,7 +26,7 @@ export const deleteCategory = async ({ slug, token }) => {
       }
     };
 
-    const { data } = await axios.delete(`/api/categories/${slug}`, config);
+    const { data } = await axios.delete(`${process.env.REACT_APP_API_URL}/api/categories/${slug}`, config);
 
     return { data };
   } catch (error) {
@@ -46,7 +46,7 @@ export const createCategory = async ({ token, title, parent, color, slug }) => {
     };
 
     const { data } = await axios.post(
-      `/api/categories`,
+      `${process.env.REACT_APP_API_URL}/api/categories`,
       {
         title,
         parent,
@@ -73,7 +73,7 @@ export const updateCategory = async ({ token, title, parent, color, slug, catego
       }
     };
     const { data } = await axios.put(
-      `/api/categories/${categoryId}`,
+      `${process.env.REACT_APP_API_URL}/api/categories/${categoryId}`,
       {
         title,
         parent,
@@ -93,7 +93,7 @@ export const updateCategory = async ({ token, title, parent, color, slug, catego
 
 export const getCategory = async (slug) => {
   try {
-    const { data } = await axios.get(`/api/categories/${slug}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/${slug}`);
     return data;
   } catch (error) {
     if (error.response && error.response.data.message) {

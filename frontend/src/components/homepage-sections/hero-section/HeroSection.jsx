@@ -4,7 +4,6 @@ import "./hero-section.css";
 import ArticleCard from "../../cards/article-card/ArticleCard.jsx";
 
 const HeroSection = ({ postsData }) => {
-  console.log(postsData.data);
   return (
     <section className="hero-section-container">
       <div className="hero-grid-container">

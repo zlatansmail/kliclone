@@ -2,7 +2,7 @@ import axios from "axios";
 
 const signUp = async ({ name, email, password }) => {
   try {
-    const { data } = await axios.post("/api/users/register", {
+    const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/register`, {
       name,
       email,
       password
@@ -18,7 +18,7 @@ const signUp = async ({ name, email, password }) => {
 
 const logIn = async ({ email, password }) => {
   try {
-    const { data } = await axios.post("/api/users/login", {
+    const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/login`, {
       email,
       password
     });
@@ -38,7 +38,7 @@ const getUserProfile = async ({ token }) => {
         Authorization: `Bearer ${token}`
       }
     };
-    const { data } = await axios.get("/api/users/profile", config);
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/profile`, config);
     return data;
   } catch (error) {
     if (error.response && error.response.data.message) {
@@ -56,7 +56,7 @@ const updateProfile = async ({ token, userData, userId }) => {
       }
     };
     const { data } = await axios.put(
-      `/api/users/updateProfile/${userId}`,
+      `${process.env.REACT_APP_API_URL}/api/users/updateProfile/${userId}`,
       userData,
       config
     );
@@ -79,7 +79,7 @@ const updateProfilePicture = async ({ token, formData }) => {
     };
 
     const { data } = await axios.put(
-      "/api/users/updateProfilePicture",
+      `${process.env.REACT_APP_API_URL}/api/users/updateProfilePicture`,
       formData,
       config
     );
@@ -100,7 +100,7 @@ const getAllUsers = async (token, searchKeyword = "", page = 1, limit = 10) => {
       }
     };
     const { data, headers } = await axios.get(
-      `/api/users?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`,
+      `${process.env.REACT_APP_API_URL}/api/users?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}`,
       config
     );
     return { data, headers };
@@ -118,7 +118,7 @@ const deleteUser = async ({ token, slug }) => {
         Authorization: `Bearer ${token}`
       }
     };
-    const { data } = await axios.delete(`/api/users/${slug}`, config);
+    const { data } = await axios.delete(`${process.env.REACT_APP_API_URL}/api/users/${slug}`, config);
     return data;
   } catch (error) {
     if (error.response && error.response.data.message) {
