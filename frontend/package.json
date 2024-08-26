@@ -33,6 +33,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.7.2",
     "html-react-parser": "^5.1.10",
+    "http-proxy-middleware": "^3.0.0",
     "lowlight": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -72,5 +73,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }

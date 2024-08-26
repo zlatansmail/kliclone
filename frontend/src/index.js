@@ -9,6 +9,7 @@ import App from "./App";
 import "./index.css";
 import store from "./store";
 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
