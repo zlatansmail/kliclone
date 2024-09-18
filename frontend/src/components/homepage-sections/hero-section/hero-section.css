@@ -150,3 +150,11 @@
 .featured-news-article .article-image-wrapper {
   display: none;
 }
+
+@media only screen and (max-width: 1024px) {
+  .hero-grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content min-content;
+    height: auto;
+  }
+}

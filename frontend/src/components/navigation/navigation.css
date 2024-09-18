@@ -1,5 +1,5 @@
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 1;
@@ -17,16 +17,15 @@ header {
 }
 
 .navigation-wrapper {
-  position: sticky;
   display: flex;
   flex-direction: row;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: nowrap;
   align-items: center;
-  width: 100%;
   margin-bottom: 4px;
+  min-width: 80rem;
 }
 
 .navigation {
@@ -160,4 +159,26 @@ header {
 
 .profile-dropdown-closed {
   display: none;
+}
+
+@media only screen and (max-width: 1274px) {
+  .navigation-wrapper {
+    min-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  header {
+    font-size: 0.8rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  .navigation-wrapper {
+    min-width: 100%;
+    margin-bottom: 0;
+  }
+  .nav-logo {
+    width: 60px;
+    height: 30px;
+  }
 }

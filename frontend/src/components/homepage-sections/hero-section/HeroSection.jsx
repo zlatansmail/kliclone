@@ -2,8 +2,13 @@ import React from "react";
 
 import "./hero-section.css";
 import ArticleCard from "../../cards/article-card/ArticleCard.jsx";
+import useWindowDimensions from "../../../hooks/useWindowDimension.js";
 
 const HeroSection = ({ postsData }) => {
+  const { width, height } = useWindowDimensions();
+
+  const displayFeaturedNews = width > 1024;
+
   return (
     <section className="hero-section-container">
       <div className="hero-grid-container">
@@ -35,34 +40,36 @@ const HeroSection = ({ postsData }) => {
             </div>
           ))}
         </div>
-        <div className="featured-news-container">
-          <div className="featured-news-wrapper">
-            <div className="featured-news-buttons-wrapper">
-              <div className="featured-news-button">Najnovije</div>
-              <div className="featured-news-button">Najčitanije</div>
-              <div className="featured-news-button">Preporuke</div>
-            </div>
-            <div className="featured-news-article-wrapper">
-              {postsData.data.slice(0, 10).map((post) => (
-                <div key={post?._id} className="featured-news-article">
-                  <ArticleCard
-                    key={post._id}
-                    title={post.title}
-                    captionColor={
-                      post.categories[0]?.color || "rgb(250, 61, 62)"
-                    }
-                    caption={post.caption}
-                    createdAt={post.createdAt}
-                    sharesNo={post.sharesNo}
-                    slug={post.slug}
-                    post={post}
-                    commentsNo={post.comments.length}
-                  />
-                </div>
-              ))}
+        {displayFeaturedNews && (
+          <div className="featured-news-container">
+            <div className="featured-news-wrapper">
+              <div className="featured-news-buttons-wrapper">
+                <div className="featured-news-button">Najnovije</div>
+                <div className="featured-news-button">Najčitanije</div>
+                <div className="featured-news-button">Preporuke</div>
+              </div>
+              <div className="featured-news-article-wrapper">
+                {postsData.data.slice(0, 10).map((post) => (
+                  <div key={post?._id} className="featured-news-article">
+                    <ArticleCard
+                      key={post._id}
+                      title={post.title}
+                      captionColor={
+                        post.categories[0]?.color || "rgb(250, 61, 62)"
+                      }
+                      caption={post.caption}
+                      createdAt={post.createdAt}
+                      sharesNo={post.sharesNo}
+                      slug={post.slug}
+                      post={post}
+                      commentsNo={post.comments.length}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
