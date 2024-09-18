@@ -1,11 +1,11 @@
-import React, { Children } from "react";
+import React from "react";
 
 import Pagination from "../../../../common/pagination/Pagination";
 
 import "./data-table.css";
 
 const DataTable = ({
-    tableHeaderTitleList,
+  tableHeaderTitleList,
   searchKeyword,
   searchKeyworOnChangedHandler,
   pageTitle,
@@ -36,12 +36,12 @@ const DataTable = ({
             value={searchKeyword}
           />
           <button type="submit" className="search-button">
-            Pretrazi
+            Pretraži
           </button>
         </form>
       </div>
       <table className="table">
-        <thead>
+        <thead className="table-header">
           <tr>
             {tableHeaderTitleList.map((title, index) => (
               <th key={index} scope="col">
@@ -59,7 +59,7 @@ const DataTable = ({
             </tr>
           ) : isError ? (
             <tr>
-              <td className="error">Greska pri dohvacanju podataka</td>
+              <td className="error">Greška pri dohvaćanju podataka</td>
             </tr>
           ) : data?.length === 0 ? (
             <tr>
@@ -79,9 +79,7 @@ const DataTable = ({
           totalPageCount={totalPageCount}
         />
       )}
-      
     </div>
-    
   );
 };
 

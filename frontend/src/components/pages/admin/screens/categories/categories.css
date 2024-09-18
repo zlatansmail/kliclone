@@ -37,3 +37,20 @@
     margin-bottom: 1rem;
     color: var(--text-color);
 }
+
+.add-cat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 30px;
+}
+
+.add-cat-button {
+    background-color: var(--fore-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: 0.3s;
+}

@@ -61,7 +61,7 @@ const Comments = () => {
     <DataTable
       pageTitle={"Upravljanje komentarima"}
       dataListName={"Comments"}
-      searchInputPlaceholder={"Pretrazi komentare..."}
+      searchInputPlaceholder={"Pretraži komentare..."}
       searchKeywordOnSubmitHandler={submitSearchKeywordHandler}
       searchKeyworOnChangedHandler={searchKeywordHandler}
       searchKeyword={searchKeyword}
@@ -69,7 +69,7 @@ const Comments = () => {
         "Autor",
         "Komentar",
         "Kreiran",
-        "Na clanku",
+        "Na članku",
         "Kreiran",
         "Akcije"
       ]}
@@ -83,81 +83,93 @@ const Comments = () => {
     >
       {allCommentssData?.data?.map((comment, index) => (
         <tr key={comment._id}>
-          <td className="post-img-title">
-            <img
-              src={
-                comment?.user?.avatar
-                  ? stables.UPLOAD_FOLDER_BASE_URL + comment?.user?.avatar
-                  : images.sampleUserImage
-              }
-              alt={comment?.user?.name}
-              className="post-image"
-            />
+          <td>
+            <div className="table-cell-content">
+              <img
+                src={
+                  comment?.user?.avatar
+                    ? stables.UPLOAD_FOLDER_BASE_URL + comment?.user?.avatar
+                    : images.sampleUserImage
+                }
+                alt={comment?.user?.name}
+                className="post-image"
+              />
 
-            <p>{comment?.user?.name}</p>
+              <p>{comment?.user?.name}</p>
+            </div>
           </td>
           <td>
-            {comment?.replyOnUser !== null && (
-              <p>
-                Odgovor na
-                <Link
-                  to={`/clanak/${comment?.post?.slug}/#comment-${comment?._id}`}
-                >
-                  {comment?.replyOnUser?.name}
-                </Link>
-              </p>
-            )}
-            {comment?.desc}
+            <div className="table-cell-content">
+              {comment?.replyOnUser !== null && (
+                <p>
+                  Odgovor na
+                  <Link
+                    to={`/clanak/${comment?.post?.slug}/#comment-${comment?._id}`}
+                  >
+                    {comment?.replyOnUser?.name}
+                  </Link>
+                </p>
+              )}
+              {comment?.desc}
+            </div>
           </td>
           <td>
-            {new Date(comment?.createdAt).toLocaleString("bs-BA", {
-              day: "numeric",
-              month: "numeric",
-              year: "numeric"
-            })}
-          </td>
-          <td className="tags-cell">
-            <Link to={`/clanak/${comment?.post?.slug}`}>
-              {comment?.post?.title}
-            </Link>
-          </td>
-          <td className="buttons-cell">
-            <p>
+            <div className="table-cell-content">
               {new Date(comment?.createdAt).toLocaleString("bs-BA", {
                 day: "numeric",
                 month: "numeric",
                 year: "numeric"
               })}
-            </p>
+            </div>
+          </td>
+          <td className="">
+            <div className="table-cell-content">
+              <Link to={`/clanak/${comment?.post?.slug}`}>
+                {comment?.post?.title}
+              </Link>
+            </div>
+          </td>
+          <td className="buttons-cell">
+            <div className="table-cell-content">
+              <p>
+                {new Date(comment?.createdAt).toLocaleString("bs-BA", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric"
+                })}
+              </p>
+            </div>
           </td>
           <td>
-            <button
-            disabled={isLoadingUpdateCommentCheck}
-            type="button"
-            className="update-comment-check-button"
-            onClick={() => {
-              mutateUpdateCommentCheck({
-                token: userState.userInfo.token,
-                check: !comment?.check,
-                commentId: comment?._id
-              });
-            }}
-            >
-              {comment?.check ? "Sakrij" : "Prikaži"}
-            </button>
-            <button
-            disabled={isLoadingDeleteData}
-            type="button"
-            className="update-comment-delete-button"
-            onClick={() => {
-              deleteDataHandler({
-                token: userState.userInfo.token,
-                slug: comment?._id
-              });
-            }}
-            >
-              Obrisi
-            </button>
+            <div className="table-cell-content">
+              <button
+                disabled={isLoadingUpdateCommentCheck}
+                type="button"
+                className="update-comment-check-button"
+                onClick={() => {
+                  mutateUpdateCommentCheck({
+                    token: userState.userInfo.token,
+                    check: !comment?.check,
+                    commentId: comment?._id
+                  });
+                }}
+              >
+                {comment?.check ? "Sakrij" : "Prikaži"}
+              </button>
+              <button
+                disabled={isLoadingDeleteData}
+                type="button"
+                className="update-comment-delete-button"
+                onClick={() => {
+                  deleteDataHandler({
+                    token: userState.userInfo.token,
+                    slug: comment?._id
+                  });
+                }}
+              >
+                Obriši
+              </button>
+            </div>
           </td>
         </tr>
       ))}

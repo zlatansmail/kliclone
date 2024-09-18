@@ -31,7 +31,7 @@ const Header = () => {
       {
         onSuccess: (data) => {
           queryClient.invalidateQueries(["posts"]);
-          toast.success("Clanak je kreiran!");
+          toast.success("Članak je kreiran!");
           navigate(`/dashboard/articles/manage/edit/${data.slug}`);
         },
         onError: (error) => {
@@ -90,7 +90,7 @@ const Header = () => {
               setActiveNavName={setActiveNavName}
             />
             <NavItemCollapse
-              title="Clanci"
+              title="Članci"
               icon={<MdArticle />}
               name="articles"
               activeNavName={activeNavName}
@@ -100,7 +100,7 @@ const Header = () => {
                 to="/dashboard/articles/manage"
                 className="dropdown-nav-item"
               >
-                Upravljaj clancima
+                Upravljaj člancima
               </Link>
               <Link
                 to="/dashboard/categories/manage"
@@ -108,7 +108,7 @@ const Header = () => {
               >
                 Kategorije
               </Link>
-              <button
+              <Link
                 disabled={isLoadingCreatePost}
                 onClick={() =>
                   handleCreateNewPost({
@@ -117,8 +117,8 @@ const Header = () => {
                 }
                 className="dropdown-nav-item"
               >
-                Dodaj novi clanak
-              </button>
+                Dodaj novi članak
+              </Link>
             </NavItemCollapse>
           </div>
         )}
@@ -168,7 +168,7 @@ const Header = () => {
                     setActiveNavName={setActiveNavName}
                   />
                   <NavItemCollapse
-                    title="Clanci"
+                    title="Članci"
                     icon={<MdArticle />}
                     name="articles"
                     activeNavName={activeNavName}
@@ -178,7 +178,7 @@ const Header = () => {
                       to="/dashboard/articles/manage"
                       className="dropdown-nav-item"
                     >
-                      Upravljaj clancima
+                      Upravljaj člancima
                     </Link>
                     <Link
                       to="/dashboard/categories/manage"
@@ -195,7 +195,7 @@ const Header = () => {
                       }
                       className="dropdown-nav-item"
                     >
-                      Dodaj novi clanak
+                      Dodaj novi članak
                     </button>
                   </NavItemCollapse>
                   <div onClick={toggleMenuHandler} className="dash-nav-item">

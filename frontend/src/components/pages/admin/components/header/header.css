@@ -35,6 +35,30 @@
     background-color: var(--fore-bg-color);
 }
 
+.dropdown-nav-item {
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.dropdown-nav-item button {
+    background-color: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+.dropdown-nav-item:hover {
+    background-color: rgb(59 77 102);
+}
+
 @media only screen and (max-width: 1024px) {
 
     .underlay {

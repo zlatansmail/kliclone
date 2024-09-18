@@ -28,7 +28,7 @@ const ManagePosts = () => {
   } = useDataTable({
     dataQueryFn: () => getAllPosts(searchKeyword, currentPage),
     dataQueryKey: "post",
-    deleteDataMessage: "Clanak uspjesno obrisan",
+    deleteDataMessage: "Članak uspjesno obrisan",
     mutateDeleteFn: ({ token, slug }) => {
       return deletePost({ token, slug });
     }
@@ -37,9 +37,9 @@ const ManagePosts = () => {
   return (
     <div className="manage-posts-wrapper">
       <DataTable
-        pageTitle={"Upravljanje postovima"}
+        pageTitle={"Upravljanje člancima"}
         dataListName={"posts"}
-        searchInputPlaceholder={"Pretrazi clanke..."}
+        searchInputPlaceholder={"Pretrazi članke..."}
         searchKeywordOnSubmitHandler={submitSearchKeywordHandler}
         searchKeyworOnChangedHandler={searchKeywordHandler}
         searchKeyword={searchKeyword}
@@ -61,61 +61,71 @@ const ManagePosts = () => {
       >
         {allPostsData?.data?.map((post) => (
           <tr key={post._id}>
-            <td className="post-img-title">
-              <img
-                src={
-                  post.photo
-                    ? stables.UPLOAD_FOLDER_BASE_URL + post.photo
-                    : images.samplePostImage
-                }
-                alt={post.photoDesc}
-                className="post-image"
-              />
-              <p>{post.title}</p>
+            <td>
+              <div className="table-cell-content">
+                <img
+                  src={
+                    post.photo
+                      ? stables.UPLOAD_FOLDER_BASE_URL + post.photo
+                      : images.samplePostImage
+                  }
+                  alt={post.photoDesc}
+                  className="post-image"
+                />
+                <p>{post.title}</p>
+              </div>
             </td>
             <td>
-              {post.categories.length > 0
-                ? post.categories
-                    .slice(0, 3)
-                    .map((item) => item.title)
-                    .join(", ")
-                : "Bez kategorije"}
+              <div className="table-cell-content">
+                {post.categories.length > 0
+                  ? post.categories
+                      .slice(0, 3)
+                      .map((item) => item.title)
+                      .join(", ")
+                  : "Bez kategorije"}
+              </div>
             </td>
             <td>
-              {new Date(post.createdAt).toLocaleString("bs-BA", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric"
-              })}
+              <div className="table-cell-content">
+                {new Date(post.createdAt).toLocaleString("bs-BA", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric"
+                })}
+              </div>
             </td>
-            <td className="tags-cell">
-              {post.tags.length > 0
-                ? post.tags.map((tag, index) => (
-                    <span key={index}>
-                      {tag} {post.tags.length - 1 !== index && ","}
-                    </span>
-                  ))
-                : "Nema tagova"}
+            <td>
+              <div className="table-cell-content">
+                {post.tags.length > 0
+                  ? post.tags.map((tag, index) => (
+                      <span key={index}>
+                        {tag} {post.tags.length - 1 !== index && ","}
+                      </span>
+                    ))
+                  : "Nema tagova"}
+              </div>
             </td>
             <td className="buttons-cell">
-              <Link
-                to={`/dashboard/articles/manage/edit/${post?.slug}`}
-                className="edit-button"
-              >
-                Uredi
-              </Link>
-              <button
-                disabled={isLoadingDeleteData}
-                onClick={() =>
-                  deleteDataHandler({
-                    slug: post.slug,
-                    token: userState.userInfo.token
-                  })
-                }
-                className="delete-button"
-              >
-                Obrisi
-              </button>
+              <div className="table-cell-content">
+                <Link
+                  to={`/dashboard/articles/manage/edit/${post?.slug}`}
+                  className="edit-button"
+                >
+                  Uredi
+                </Link>
+                <button
+                  disabled={isLoadingDeleteData}
+                  onClick={() =>
+                    deleteDataHandler({
+                      slug: post.slug,
+                      token: userState.userInfo.token
+                    })
+                  }
+                  className="delete-button"
+                >
+                  Obrisi
+                </button>
+              </div>
             </td>
           </tr>
         ))}

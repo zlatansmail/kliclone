@@ -5,19 +5,18 @@ import {
   updatePost,
   deletePost,
   getPost,
-  getAllPosts
+  getAllPosts,
+  getPostsByCategory
 } from "../controllers/postControllers.js";
 import { authGuard, adminGuard } from "../middleware/authMiddleware.js";
+import { get } from "mongoose";
 const router = express.Router();
 
-router
-  .route("/")
-  .post(authGuard, adminGuard, createPost)
-  .get(getAllPosts)
+router.route("/").post(authGuard, adminGuard, createPost).get(getAllPosts);
 router
   .route("/:slug")
   .put(authGuard, adminGuard, updatePost)
   .delete(authGuard, adminGuard, deletePost)
   .get(getPost);
-
-export default router; 
+router.route("/:categoryTitle").get(getPostsByCategory);
+export default router;

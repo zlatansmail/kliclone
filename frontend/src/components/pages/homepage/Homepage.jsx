@@ -81,15 +81,4 @@ const Homepage = () => {
   );
 };
 
-/*        
-
-<CategorySectionSix sectionHeading={"Auto"} />
-<CategorySectionSix sectionHeading={"Auto"} />
-<CategorySectionSix sectionHeading={"Auto"} />
-<CategorySectionFour sectionHeading={"Auto"} categoryColor link />
-<CategorySectionFour sectionHeading={"Scitech"} />
-<CategorySectionPromo sectionHeading={"Promo"} /> 
-          
-*/
-
 export default Homepage;

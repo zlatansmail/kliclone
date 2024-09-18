@@ -58,8 +58,6 @@ const ArticlePage = () => {
 
   const captionColor = singleData?.categories[0].color;
 
-  console.log(captionColor);
-
   const currentUrl = getCurrentURL();
 
   let timeSincePost = timeSince(singleData?.createdAt);

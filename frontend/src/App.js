@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
@@ -14,6 +14,7 @@ import ManagePosts from "./components/pages/admin/screens/managePosts/ManagePost
 import EditPost from "./components/pages/admin/screens/editPost/EditPost.jsx";
 import Categories from "./components/pages/admin/screens/categories/Categories.jsx";
 import Users from "./components/pages/admin/screens/users/Users.jsx";
+import CategoryPage from "./components/pages/categoryPage/CategoryPage.jsx";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
       <Routes>
         <Route index path="/" element={<Homepage />} />
         <Route path="/clanak/:slug" element={<ArticlePage />} />
+        <Route path="/:categoryTitle" element={<CategoryPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />

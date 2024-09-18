@@ -1,0 +1,14 @@
+.bellow-header {
+  height: 55px;
+  background-color: var(--main-bg-color);
+}
+
+.homepage {
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+}
+
+.home-body {
+  display: flex;
+  flex-direction: column;
+}

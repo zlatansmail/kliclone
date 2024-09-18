@@ -39,6 +39,7 @@
 }
 
 .table {
+    display: table;
     border-collapse: collapse;
     color: #ddd;
     width: 100%;
@@ -46,6 +47,7 @@
 }
 
 .table tr .loading {
+    display: table-row;
     font-size: 2rem;
     text-align: center;
     width: 100%;
@@ -55,10 +57,63 @@
     display: table-cell;
     border: 1px solid rgb(55 65 81);
     padding: 5px;
-    align-items: center;
 }
 
-.table td {
+.table-cell-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.table-cell-content img {
+    margin-right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.table-cell-content a {
+    color: #1599c9;
+    text-decoration: none;
+}
+.table-cell-content .update-comment-check-button {
+    background-color: #1599c9;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.table-cell-content .update-comment-check-button:hover {
+    background-color: var(--fore-bg-color);
+}
+
+.table-cell-content .update-comment-check-button:disabled {
+    background-color: #1599c9;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: not-allowed;
+}
+
+.table-cell-content .update-comment-delete-button {
+    background-color: #bd2d1e;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.table-cell-content .update-comment-delete-button:hover {
+    background-color: var(--fore-bg-color);
+}
+
+.table td  *{
     text-align: left;
     vertical-align: middle;
 }
@@ -71,21 +126,12 @@
     color: white;
 }
 
-.post-image {
-    width: 3rem;
-    height: 3rem;
-    object-fit: cover;
-    border-radius: 0.5rem;
-
-}
-
 .post-img-title {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 2rem
 }
-
 
 .edit-button {
     text-decoration: none;

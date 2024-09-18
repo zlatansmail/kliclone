@@ -75,7 +75,7 @@ const LoginPage = () => {
                     message: "Email je obavezan"
                   }
                 })}
-                placeholder="Vas email"
+                placeholder="Vaš email"
                 required
               ></input>
               {errors.email?.message && (
@@ -97,7 +97,7 @@ const LoginPage = () => {
                     message: "minimalno 6 karaktera"
                   }
                 })}
-                placeholder="Vasa lozinka"
+                placeholder="Vaša lozinka"
                 required
               ></input>
               {errors.password?.message && (
@@ -120,6 +120,11 @@ const LoginPage = () => {
               <Link to="/register" className="register-link">
                 Nemate nalog? Registrujte se
               </Link>
+            </div>
+            <div className="additional-info">
+              Demo login podaci: <br />
+              Email: demo@demo.com <br />
+              Lozinka: demodemo
             </div>
           </form>
         </div>

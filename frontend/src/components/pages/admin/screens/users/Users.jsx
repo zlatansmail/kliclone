@@ -96,42 +96,58 @@ const Users = () => {
         {usersData?.data?.map((user) => (
           <tr key={user._id}>
             <td>
-              <img
-                src={
-                  user?.photo
-                    ? stables.UPLOAD_FOLDER_BASE_URL + user.avatar
-                    : images.sampleUserImage
-                }
-                alt="profile"
-                className="post-image"
-              />
-              {user.name}
+              <div className="table-cell-content">
+                <img
+                  src={
+                    user?.photo
+                      ? stables.UPLOAD_FOLDER_BASE_URL + user.avatar
+                      : images.sampleUserImage
+                  }
+                  alt="profile"
+                  className="post-image"
+                />
+                <span className="user-name">{user.name}</span>
+              </div>
             </td>
-            <td>{user.email}</td>
-            <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-            <td>{user.verified ? "Da" : "Ne"}</td>
-            <td>
-              <input
-                type="checkbox"
-                defaultChecked={user.admin}
-                onChange={(e) => handleAdminCheck(e, user._id)}
-                disabled={isLoadingUpdateUser}
-                className="admin-checkbox"
-              />
+            <td className="user-email">
+              <div className="table-cell-content">{user.email}</div>
+            </td>
+            <td className="user-date">
+              <div className="table-cell-content">
+                {new Date(user.createdAt).toLocaleDateString()}
+              </div>
+            </td>
+            <td className="user-verified">
+              <div className="table-cell-content">
+                {user.verified ? "Da" : "Ne"}
+              </div>
             </td>
             <td>
-              <button
-                disabled={isLoadingDeleteData}
-                onClick={() =>
-                  deleteDataHandler({
-                    slug: user._id,
-                    token: userState.userInfo.token
-                  })
-                }
-                className="delete-button"
-              >
-                Obriši
-              </button>
+              <div className="table-cell-content">
+                <input
+                  type="checkbox"
+                  defaultChecked={user.admin}
+                  onChange={(e) => handleAdminCheck(e, user._id)}
+                  disabled={isLoadingUpdateUser}
+                  className="admin-checkbox"
+                />
+              </div>
+            </td>
+            <td>
+              <div className="table-cell-content">
+                <button
+                  disabled={isLoadingDeleteData}
+                  onClick={() =>
+                    deleteDataHandler({
+                      slug: user._id,
+                      token: userState.userInfo.token
+                    })
+                  }
+                  className="delete-button"
+                >
+                  Obriši
+                </button>
+              </div>
             </td>
           </tr>
         ))}

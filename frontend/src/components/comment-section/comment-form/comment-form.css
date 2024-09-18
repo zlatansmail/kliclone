@@ -52,5 +52,10 @@
     background-color: rgb(191, 124, 124);
 }
 
-
+.sign-in-to-comment {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+}
 

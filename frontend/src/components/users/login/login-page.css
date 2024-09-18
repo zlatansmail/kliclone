@@ -76,6 +76,7 @@ label {
 }
 
 .additional-info {
+    color: white;
     margin: 10px 0;
     display: flex;
     justify-content: flex-start;

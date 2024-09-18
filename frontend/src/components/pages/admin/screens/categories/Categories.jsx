@@ -83,8 +83,8 @@ const Categories = () => {
 
   return (
     <div className="manage-posts-wrapper">
-      <div>
-        <button onClick={openModal}>Dodaj kategoriju</button>
+      <div className="add-cat-button-wrapper">
+        <button className="add-cat-button" onClick={openModal}>Dodaj kategoriju</button>
       </div>
         <Modal
           isOpen={modalIsOpen}

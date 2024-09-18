@@ -22,7 +22,7 @@ const SocialShareButtons = ({ url, title }) => {
       <div className="share-grid-social-icon">
         <a
           target="_blank" rel="noreferrer"
-          href={`mailto:?subject=Clanak ${title}&amp; body=pogledaj ovu vijest ${url}`}
+          href={`mailto:?subject=Članak ${title}&amp; body=pogledaj ovu vijest ${url}`}
         >
           <img alt="share with mail" src="/social/mail.svg" />
         </a>{" "}
