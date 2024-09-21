@@ -100,11 +100,6 @@
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-  .cat-four-grid-item:nth-last-child(-n+3) .article-image-wrapper img {
-    display: none;
-  }
-}
 
 @media only screen and (max-width: 768px) {
   .cat-four-grid-container {
