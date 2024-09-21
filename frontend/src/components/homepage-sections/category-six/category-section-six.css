@@ -11,8 +11,6 @@
   margin-right: auto;
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr 1fr 25%;
-  grid-template-rows: min-content auto auto;
   gap: 0.125rem;
   background-color: rgb(55 65 81);
 }
@@ -25,17 +23,95 @@
 }
 
 .cat-six-grid-item:nth-child(1) {
-  grid-column: span 5;
   text-align: left;
   vertical-align: middle;
   padding: 0;
   max-width: 100%;
 }
 
-.cat-six-grid-item:nth-child(n+2):nth-child(-n+5) {
-  grid-row: span 2;
+@media only screen and (min-width: 1024px) {
+  .cat-six-grid-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr 25%;
+    grid-template-rows: min-content auto auto;
+  }
+  
+  .cat-six-grid-item:nth-child(1) {
+    grid-column: span 5;
+
+  }
+  
+  .cat-six-grid-item:nth-child(n+2):nth-child(-n+5) {
+    grid-row: span 2;
+  }
+  
+  .cat-six-grid-item:nth-last-child(-n+2) .article-image-wrapper img {
+    display: none;
+  }
 }
 
-.cat-six-grid-item:nth-last-child(-n+2) .article-image-wrapper img {
-  display: none;
+@media only screen and (max-width: 1024px) {
+  .cat-six-grid-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: min-content auto auto auto;
+  }
+  .cat-six-grid-item:nth-child(1) {
+    grid-column: span 3;
+
+  }
+  .cat-six-grid-item:nth-child(n+5) {
+    grid-row: span 1;
+  }
+  
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .cat-six-grid-item:nth-last-child(-n+3) .article-image-wrapper img {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .cat-six-grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content min-content;
+    height: auto;
+  }
+
+  .cat-six-articles-container {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-six-grid-item:nth-child(1) {
+    grid-column: span 1;
+  }
+  .cat-six-grid-item:nth-child(n+3) {
+    display: flex;
+  }
+  .cat-six-grid-item:nth-child(n+3) .article-card-content {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 50%;
+  }
+
+  .cat-six-grid-item:nth-child(n+3) .article-image-container {
+    width: 25%;
+    aspect-ratio: 1/1;
+  }
+
+  .cat-six-grid-item:nth-child(n+3) .article-image-wrapper {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cat-six-grid-item:nth-child(n+3) .article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cat-six-grid-item:nth-child(n+3) .article-details-container {
+    width: 75%;
+    margin-left: 0.5rem;
+  }
 }

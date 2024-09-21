@@ -12,7 +12,7 @@
   background-color: var(--fore-bg-color);
   color: white;
   top: 56px;
-  width: 80rem;
+  max-width: 80rem;
   z-index: 1000;
 }
 
@@ -97,4 +97,23 @@
 
 .dropdown-grid-item li {
   list-style: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .dropdown-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .dropdown-items-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .dropdown-grid {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }

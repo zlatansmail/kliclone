@@ -9,7 +9,7 @@ footer {
   margin-right: auto;
   color: rgba(107, 114, 128, 1);
   font-size: 0.9rem;
-  background-color: var(--main-bg-color);
+  background-color: var(--fore-bg-color);
 }
 
 .footer-nav {
@@ -63,4 +63,20 @@ footer {
   font-size: 0.8rem;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  footer {
+    font-size: 0.8rem;
+    padding-top: 0.25rem;
+  }
+  .footer-nav ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+  .footer-nav ul li {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+  }
 }

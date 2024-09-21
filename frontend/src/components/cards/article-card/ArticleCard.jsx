@@ -22,44 +22,47 @@ export const ArticleCard = ({
     <div className="article-card">
       <div className="article-card-wrapper">
         <div className="article-card-content">
-          <Link to={`/clanak/${slug}`}>
-            <div className="article-image-wrapper">
-              <img
-                src={
-                  photo
-                    ? stables.UPLOAD_FOLDER_BASE_URL + photo
-                    : images.samplePostImage
-                }
-                alt={title + " image"}
-                className="article-image"
-              />
-            </div>
-          </Link>
-
-          <div className="article-details-container">
-            <div
-              className="caption"
-              style={{
-                color: captionColor
-              }}
-            >
-              {caption}
-            </div>
+          <div className="article-image-container">
             <Link to={`/clanak/${slug}`}>
-              <h2 className="article-title">{title}</h2>
+              <div className="article-image-wrapper">
+                <img
+                  src={
+                    photo
+                      ? stables.UPLOAD_FOLDER_BASE_URL + photo
+                      : images.samplePostImage
+                  }
+                  alt={title + " image"}
+                  className="article-image"
+                />
+              </div>
             </Link>
           </div>
-
-          <div className="article-share-comments-time">
-            <div>{timeSincePost}</div>
-            <div className="article-shares-comments">
-              <div className="article-shares">
-                <img src="/shares.svg" alt="shares" />
-                {sharesNo || 0}
+          <div className="article-details-container">
+            <div className="article-caption-heading">
+              <div
+                className="caption"
+                style={{
+                  color: captionColor
+                }}
+              >
+                {caption}
               </div>
-              <div className="article-comments">
-                <img src="/comments.svg" alt="comments" />
-                {commentsNo || 0}
+              <Link to={`/clanak/${slug}`}>
+                <h2 className="article-title">{title}</h2>
+              </Link>
+            </div>
+
+            <div className="article-share-comments-time">
+              <div>{timeSincePost}</div>
+              <div className="article-shares-comments">
+                <div className="article-shares">
+                  <img src="/shares.svg" alt="shares" />
+                  {sharesNo || 0}
+                </div>
+                <div className="article-comments">
+                  <img src="/comments.svg" alt="comments" />
+                  {commentsNo || 0}
+                </div>
               </div>
             </div>
           </div>
