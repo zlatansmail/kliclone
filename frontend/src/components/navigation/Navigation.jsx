@@ -21,10 +21,11 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
 
   const [profileDropdown, setProfileDropdown] = useState(false);
 
-  const { width, height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions(); 
+  
+  const isMobile = width < 768;
 
   const displayedNavItems = width < 1274 ? navItems.slice(0, -3) : navItems;
-  const isMobile = width < 1274;
 
   const handleClick = () => {
     handleDropDownClick();
@@ -33,7 +34,7 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
   const logoutHandler = () => {
     dispatch(logout());
   };
-
+  console.log(isMobile);
   return (
     <header>
       {isMobile ? (
