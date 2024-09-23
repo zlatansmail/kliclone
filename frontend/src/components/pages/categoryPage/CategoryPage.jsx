@@ -4,34 +4,37 @@ import MainLayout from "../../MainLayout.jsx";
 import HeroSection from "../../homepage-sections/hero-section/HeroSection.jsx";
 import "./category-page.css";
 import { useQuery } from "react-query";
-import {
-  getPostsByCategory
-} from "../../../services/index/posts.js";
+import { getAllPosts } from "../../../services/index/posts.js";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
-import { all } from "axios";
 
 const CategoryPage = () => {
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-  const categoryTitle = capitalizeFirstLetter(useParams().categoryTitle);
-  console.log(categoryTitle);
+  const { category } = useParams();
+
+  const formatedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+
+  console.log(formatedCategory);
 
   const {
-    data: postsData,
+    data: allPostsData,
     isLoading,
     isError
   } = useQuery({
-    queryFn: () => getPostsByCategory(categoryTitle),
-    queryKey: ["posts", categoryTitle],
+    queryFn: () => getAllPosts(),
+    queryKey: ["posts"],
     onError(err) {
       toast.error(err.message);
       console.log(err);
     }
   });
 
-  console.log(postsData);
+  const filterPostsByCategory = (categoryTitle) => {
+    return allPostsData?.data?.filter((post) =>
+      post.categories.some((category) => category.title === categoryTitle)
+    );
+  };
+
+  const postsByCategory = filterPostsByCategory(formatedCategory);
 
   return (
     <MainLayout>
@@ -40,7 +43,9 @@ const CategoryPage = () => {
           {isError && <div>Something went wrong</div>}
           {!isError && !isLoading && (
             <>
-              <HeroSection postsData={postsData} />
+              <HeroSection
+                postsData={postsByCategory}
+              />
             </>
           )}
         </div>

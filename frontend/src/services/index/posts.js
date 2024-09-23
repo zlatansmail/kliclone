@@ -13,14 +13,10 @@ const getAllPosts = async (searchKeyword = "", page = 1, limit = 100) => {
   }
 };
 
-const getPostsByCategory = async (categoryTitle = "", page = 1, limit = 15) => {
+const getPostsByCategory = async (category = "", page = 1, limit = 15) => {
   try {
     const { data, headers } = await axios.get(
-      `${
-        process.env.REACT_APP_API_URL
-      }/api/posts?categoryTitle=${encodeURIComponent(
-        categoryTitle
-      )}&page=${page}&limit=${limit}`
+      `${process.env.REACT_APP_API_URL}/api/posts?category=${category}&page=${page}&limit=${limit}`
     );
     return { data, headers };
   } catch (error) {

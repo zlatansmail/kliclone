@@ -34,7 +34,6 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
   const logoutHandler = () => {
     dispatch(logout());
   };
-  console.log(isMobile);
   return (
     <header>
       {isMobile ? (
@@ -105,7 +104,7 @@ const Navigation = ({ isDropDownOpen, handleDropDownClick }) => {
               <NavItem
                 key={item.id}
                 content={item.content}
-                link={`/${item.content.toLowerCase()}`}
+                link={`/category/${item.content.toLowerCase()}`}
                 boxColor={item.boxColor}
                 fontColor={item.fontColor}
               />

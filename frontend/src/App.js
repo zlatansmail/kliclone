@@ -22,7 +22,7 @@ const App = () => {
       <Routes>
         <Route index path="/" element={<Homepage />} />
         <Route path="/clanak/:slug" element={<ArticlePage />} />
-        <Route path="/:categoryTitle" element={<CategoryPage />} />
+        <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />

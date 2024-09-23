@@ -70,7 +70,9 @@ const Homepage = () => {
               ))}
               <CategorySectionPromo
                 sectionHeading={"Promo"}
-                categoryColor={filterPostsByCategory("Promo")?.[0]?.categories[0]?.color}
+                categoryColor={
+                  filterPostsByCategory("Promo")?.[0]?.categories[0]?.color
+                }
                 postsData={filterPostsByCategory("Promo")}
               />
             </>
